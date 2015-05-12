@@ -1,8 +1,5 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
@@ -21,7 +18,6 @@ public abstract class Piece {
     private Color color;
     private Moves possibleMoves;
     private boolean inBoard;
-    private Sprite sprite;
 
     /**
      * Basic constructor
@@ -48,7 +44,6 @@ public abstract class Piece {
         this.color = color;
         this.possibleMoves = new Moves();
         this.inBoard = false;
-        sprite = new Sprite(new Texture(imagePath));
     }
 
     /**
@@ -134,13 +129,5 @@ public abstract class Piece {
 
     public void setInBoard(boolean inBoard) {
         this.inBoard = inBoard;
-    }
-
-    public void draw(SpriteBatch batch){
-        sprite.draw(batch);
-    }
-
-    public void dispose(){
-        sprite.getTexture().dispose();
     }
 }

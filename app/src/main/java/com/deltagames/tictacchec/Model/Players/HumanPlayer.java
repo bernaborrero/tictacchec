@@ -1,6 +1,5 @@
 package com.deltagames.tictacchec.Model.Players;
 
-import com.badlogic.gdx.Gdx;
 import com.deltagames.tictacchec.Listeners.UserInputListener;
 import com.deltagames.tictacchec.Model.Board.Board;
 
@@ -18,6 +17,6 @@ public class HumanPlayer extends Player {
         if(listener==null){
             listener= new UserInputListener(this,board);
         }
-        Gdx.input.setInputProcessor(listener);
+        // Gdx.input.setInputProcessor(listener);
     }
 }

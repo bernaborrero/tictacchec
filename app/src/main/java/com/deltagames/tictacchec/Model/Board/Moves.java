@@ -93,6 +93,11 @@ public class Moves implements Iterable {
         public Object next() {
             return ((Map.Entry<Move, Boolean>) iterator.next()).getKey();
         }
+
+        @Override
+        public void remove() {
+
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.deltagames.tictacchec.Model.Players;
 
-import com.badlogic.gdx.Gdx;
+import android.util.Log;
+
 import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
@@ -53,7 +54,7 @@ public class Arnold extends Player {
 
                 blockingSemaphore.release();
             } catch (InterruptedException e) {
-                Gdx.app.log(ARNOLD_TAG, "Whoops! I can't block the UI!");
+                Log.d(ARNOLD_TAG, "Whoops! I can't block the UI!");
             }
         }
 

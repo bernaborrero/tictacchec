@@ -1,6 +1,5 @@
 package com.deltagames.tictacchec.Listeners;
 
-import com.badlogic.gdx.InputAdapter;
 import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Moves;
 import com.deltagames.tictacchec.Model.Pieces.Piece;
@@ -9,7 +8,7 @@ import com.deltagames.tictacchec.Model.Players.Player;
 /**
  * Created by Maxi on 27/04/2015.
  */
-public class UserInputListener extends InputAdapter {
+public class UserInputListener {
 
     private Player player;
     private Board board;
@@ -29,7 +28,6 @@ public class UserInputListener extends InputAdapter {
      * @param button
      * @return
      */
-    @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
         Piece piece = board.coordinatesToPiece(screenX, screenY);
@@ -57,17 +55,14 @@ public class UserInputListener extends InputAdapter {
         }
     }
 
-    @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
     }
 
-    @Override
     public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
 
-    @Override
     public boolean scrolled(int amount) {
         return false;
     }
