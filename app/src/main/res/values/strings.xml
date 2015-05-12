@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Tic Tac Chec</string>
+    <string name="app_id">59770752779</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_game">GameActivity</string>
+    <string name="achievements_not_available">Please sign in to view achievements</string>
+    <string name="leaderboards_not_available">Please sign in to view leaderboards</string>
+    <string name="signin_other_error">There was an error with sign in. Please try again later</string>
 </resources>

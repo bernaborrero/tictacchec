@@ -79,5 +79,10 @@
             tictacchec:fontName="theBoldFont.ttf"
             android:textSize="30sp"
             android:textColor="@color/orange" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
