@@ -1,5 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tictacchec="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -15,12 +17,14 @@
         android:layout_weight="2"
         android:gravity="center_vertical|center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/app_name"
-            android:id="@+id/menuTitle" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/menuHeader"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/header"/>
     </LinearLayout>
 
     <LinearLayout
@@ -28,14 +32,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center_vertical|center_horizontal">
+        android:gravity="center_horizontal">
 
-        <TextView
+        <com.deltagames.tictacchec.View.Utils.BoldTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Play With Computer"
-            android:id="@+id/playWithComputerButton" />
+            android:id="@+id/playWithComputerButton"
+            tictacchec:fontName="theBoldFont.ttf"
+            android:textSize="30sp"
+            android:textColor="@color/orange" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,14 +50,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center_vertical|center_horizontal">
+        android:gravity="center_horizontal">
 
-        <TextView
+        <com.deltagames.tictacchec.View.Utils.BoldTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Play Against Person"
-            android:id="@+id/playWithPersonButton" />
+            android:id="@+id/playWithPersonButton"
+            tictacchec:fontName="theBoldFont.ttf"
+            android:textSize="30sp"
+            android:textColor="@color/orange" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,13 +68,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center_vertical|center_horizontal">
+        android:gravity="center_horizontal">
 
-        <TextView
+        <com.deltagames.tictacchec.View.Utils.BoldTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Exit"
-            android:id="@+id/exitButton" />
+            android:id="@+id/exitButton"
+            tictacchec:fontName="theBoldFont.ttf"
+            android:textSize="30sp"
+            android:textColor="@color/orange" />
     </LinearLayout>
 </LinearLayout>

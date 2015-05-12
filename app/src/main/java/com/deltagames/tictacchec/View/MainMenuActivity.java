@@ -52,7 +52,7 @@ public class MainMenuActivity extends Activity {
                         startActivity(personIntent);
                         break;
                     case R.id.exitButton:
-                        System.exit(0);
+                        finish();
                 }
             }
         };
