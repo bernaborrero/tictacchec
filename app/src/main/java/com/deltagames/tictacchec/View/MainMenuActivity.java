@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deltagames.tictacchec.R;
@@ -13,6 +15,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.Player;
 import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
@@ -21,6 +24,8 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
 
     private TextView playWithComputerButton, playWithPersonButton, exitButton;
     private SignInButton signInButton;
+    private LinearLayout signOutBar;
+    private Button signOutButton;
     private View.OnClickListener mainMenuListener;
 
     private GoogleApiClient googleApiClient;
@@ -28,6 +33,7 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
     private boolean signInClicked;
     private boolean autoStartSignInFlow;
     private boolean hardMode;
+    private boolean showSignIn;
 
     private static final int RC_UNUSED = 5001;
     private static final int RC_SIGN_IN = 9001;
@@ -49,6 +55,7 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
         signInClicked = false;
         autoStartSignInFlow = true;
         hardMode = false;
+        showSignIn = true;
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -66,8 +73,19 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
         playWithPersonButton = (TextView) findViewById(R.id.playWithPersonButton);
         exitButton = (TextView) findViewById(R.id.exitButton);
         signInButton = (SignInButton) findViewById(R.id.signInButton);
+        signOutBar = (LinearLayout) findViewById(R.id.signOutBar);
+        signOutButton = (Button) findViewById(R.id.signOutButton);
 
+        updateSignInButtons();
         setUpListeners();
+    }
+
+    /**
+     * Set properly the visibility of the sign in / out buttons
+     */
+    private void updateSignInButtons() {
+        signInButton.setVisibility(showSignIn ? View.VISIBLE : View.GONE);
+        signOutBar.setVisibility(showSignIn ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -94,6 +112,9 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
                     case R.id.signInButton:
                         onSignInButtonClicked();
                         break;
+                    case R.id.signOutButton:
+                        onSignOutButtonClicked();
+                        break;
                 }
             }
         };
@@ -102,6 +123,7 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
         playWithPersonButton.setOnClickListener(mainMenuListener);
         exitButton.setOnClickListener(mainMenuListener);
         signInButton.setOnClickListener(mainMenuListener);
+        signOutButton.setOnClickListener(mainMenuListener);
     }
 
     /**
@@ -129,6 +151,18 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
     @Override
     public void onConnected(Bundle bundle) {
 
+        showSignIn = false;
+        updateSignInButtons();
+
+        Player player = Games.Players.getCurrentPlayer(googleApiClient);
+        String displayName;
+        if (player == null) {
+            displayName = "stranger";
+        } else {
+            displayName = player.getDisplayName();
+        }
+
+        // setGreeting("Hello, " + displayName);
     }
 
     @Override
@@ -150,6 +184,9 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
                 resolvingConnectionFailure = false;
             }
         }
+
+        showSignIn = true;
+        updateSignInButtons();
     }
 
     @Override
@@ -209,6 +246,9 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
         if (googleApiClient.isConnected()) {
             googleApiClient.disconnect();
         }
+
+        showSignIn = true;
+        updateSignInButtons();
     }
 
 }

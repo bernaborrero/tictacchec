@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'tictaccheckey'
+            keyPassword 'Deltagames0'
+            storeFile file('/home/berna/android.jks')
+            storePassword 'Deltagames0'
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         applicationId "com.deltagames.tictacchec"
         minSdkVersion 14
@@ -15,6 +22,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -24,6 +35,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:support-v4:22.1.1'
     compile 'com.android.support:support-v13:22.1.1'
-    compile "com.google.android.gms:play-services:7.3.0"
+    compile 'com.google.android.gms:play-services:7.3.0'
     compile project(':BaseGameUtils')
 }
