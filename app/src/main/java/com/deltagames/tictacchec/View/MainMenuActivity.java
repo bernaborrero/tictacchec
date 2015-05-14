@@ -3,36 +3,31 @@ package com.deltagames.tictacchec.View;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deltagames.tictacchec.R;
 import com.deltagames.tictacchec.Utils.GoogleServices;
+import com.deltagames.tictacchec.View.Utils.BoldTextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.Player;
 import com.google.android.gms.plus.Plus;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
 
 public class MainMenuActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleServices {
 
-    private TextView playWithComputerButton, playWithPersonButton, exitButton;
+    private TextView playWithComputerButton, playWithPersonButton, openLeaderBoardsButton, openAchievementsButton;
     private SignInButton signInButton;
-    private LinearLayout signOutBar;
-    private Button signOutButton;
+    private BoldTextView signOutButton;
     private View.OnClickListener mainMenuListener;
 
     private GoogleApiClient googleApiClient;
     private boolean resolvingConnectionFailure;
     private boolean signInClicked;
     private boolean autoStartSignInFlow;
-    private boolean hardMode;
     private boolean showSignIn;
 
     private static final int RC_UNUSED = 5001;
@@ -54,7 +49,6 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
         resolvingConnectionFailure = false;
         signInClicked = false;
         autoStartSignInFlow = true;
-        hardMode = false;
         showSignIn = true;
 
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -71,10 +65,10 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
     private void setUpGUI() {
         playWithComputerButton = (TextView) findViewById(R.id.playWithComputerButton);
         playWithPersonButton = (TextView) findViewById(R.id.playWithPersonButton);
-        exitButton = (TextView) findViewById(R.id.exitButton);
+        openLeaderBoardsButton = (TextView) findViewById(R.id.openLeaderBoardsButton);
+        openAchievementsButton = (TextView) findViewById(R.id.openAchievementsButton);
         signInButton = (SignInButton) findViewById(R.id.signInButton);
-        signOutBar = (LinearLayout) findViewById(R.id.signOutBar);
-        signOutButton = (Button) findViewById(R.id.signOutButton);
+        signOutButton = (BoldTextView) findViewById(R.id.signOutButton);
 
         updateSignInButtons();
         setUpListeners();
@@ -85,7 +79,7 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
      */
     private void updateSignInButtons() {
         signInButton.setVisibility(showSignIn ? View.VISIBLE : View.GONE);
-        signOutBar.setVisibility(showSignIn ? View.GONE : View.VISIBLE);
+        signOutButton.setVisibility(showSignIn ? View.GONE : View.VISIBLE);
     }
 
     /**
@@ -106,8 +100,11 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
                         personIntent.putExtra(GameActivity.GAME_MODE, GameActivity.GameMode.PERSON);
                         startActivity(personIntent);
                         break;
-                    case R.id.exitButton:
-                        finish();
+                    case R.id.openLeaderBoardsButton:
+                        onShowLeaderBoardsRequested();
+                        break;
+                    case R.id.openAchievementsButton:
+                        onShowAchievementsRequested();
                         break;
                     case R.id.signInButton:
                         onSignInButtonClicked();
@@ -121,7 +118,8 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
 
         playWithComputerButton.setOnClickListener(mainMenuListener);
         playWithPersonButton.setOnClickListener(mainMenuListener);
-        exitButton.setOnClickListener(mainMenuListener);
+        openLeaderBoardsButton.setOnClickListener(mainMenuListener);
+        openAchievementsButton.setOnClickListener(mainMenuListener);
         signInButton.setOnClickListener(mainMenuListener);
         signOutButton.setOnClickListener(mainMenuListener);
     }
@@ -150,19 +148,8 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
 
     @Override
     public void onConnected(Bundle bundle) {
-
         showSignIn = false;
         updateSignInButtons();
-
-        Player player = Games.Players.getCurrentPlayer(googleApiClient);
-        String displayName;
-        if (player == null) {
-            displayName = "stranger";
-        } else {
-            displayName = player.getDisplayName();
-        }
-
-        // setGreeting("Hello, " + displayName);
     }
 
     @Override
@@ -190,11 +177,6 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
     }
 
     @Override
-    public void onStartGameRequested(boolean hardMode) {
-        startGame(hardMode);
-    }
-
-    @Override
     public void onShowAchievementsRequested() {
         if (isSignedIn()) {
             startActivityForResult(Games.Achievements.getAchievementsIntent(googleApiClient), RC_UNUSED);
@@ -204,21 +186,12 @@ public class MainMenuActivity extends Activity implements GoogleApiClient.Connec
     }
 
     @Override
-    public void onShowLeaderboardsRequested() {
+    public void onShowLeaderBoardsRequested() {
         if (isSignedIn()) {
             startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(googleApiClient), RC_UNUSED);
         } else {
             BaseGameUtils.makeSimpleDialog(this, getString(R.string.leaderboards_not_available)).show();
         }
-    }
-
-    /**
-     * Start the game
-     * @param hardMode the mode to start the game
-     */
-    private void startGame(boolean hardMode) {
-        this.hardMode = hardMode;
-        Log.d("GAME MENU", "Starting game... (?)");
     }
 
     @Override

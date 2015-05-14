@@ -10,4 +10,10 @@
     <string name="signin_other_error">There was an error with sign in. Please try again later</string>
     <string name="sign_out">Sign Out</string>
     <string name="you_are_signed_in">You are signed in with Google</string>
+    <string name="signOut">Sign Out</string>
+    <string name="playAgainstPerson">Play Against Person</string>
+    <string name="playWithComputer">Play With Computer</string>
+    <string name="tictacchec_title">Tic Tac Check title</string>
+    <string name="leaderBoards">Leader Boards</string>
+    <string name="achievements">Achievements</string>
 </resources>

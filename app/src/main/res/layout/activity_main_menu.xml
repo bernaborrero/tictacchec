@@ -24,7 +24,8 @@
             android:paddingRight="10dp"
             android:id="@+id/menuHeader"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/header"/>
+            android:src="@drawable/header"
+            android:contentDescription="@string/tictacchec_title" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Play With Computer"
+            android:text="@string/playWithComputer"
             android:id="@+id/playWithComputerButton"
             tictacchec:fontName="theBoldFont.ttf"
             android:textSize="30sp"
@@ -56,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Play Against Person"
+            android:text="@string/playAgainstPerson"
             android:id="@+id/playWithPersonButton"
             tictacchec:fontName="theBoldFont.ttf"
             android:textSize="30sp"
@@ -74,39 +75,52 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Exit"
-            android:id="@+id/exitButton"
+            android:text="@string/leaderBoards"
+            android:id="@+id/openLeaderBoardsButton"
             tictacchec:fontName="theBoldFont.ttf"
             android:textSize="30sp"
             android:textColor="@color/orange" />
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/signInButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout android:id="@+id/signOutBar"
-            android:layout_height="120dp"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:background="#f0f0f0"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
-            android:gravity="center|right"
-            android:padding="10dp">
+            android:layout_height="match_parent">
 
-            <TextView android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/you_are_signed_in"
-                android:layout_marginRight="10dp"
-                android:textColor="#808080" />
-
-            <Button
-                android:id="@+id/signOutButton"
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/signInButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_out"
-                android:textSize="12sp" />
-        </LinearLayout>
+                android:layout_gravity="right|bottom"/>
+
+        </FrameLayout>
+
+
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.deltagames.tictacchec.View.Utils.BoldTextView
+            android:id="@+id/openAchievementsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/achievements"
+            tictacchec:fontName="theBoldFont.ttf"
+            android:textSize="12sp"
+            android:textColor="@color/orange"
+            android:layout_gravity="left"/>
+
+        <com.deltagames.tictacchec.View.Utils.BoldTextView
+            android:id="@+id/signOutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signOut"
+            tictacchec:fontName="theBoldFont.ttf"
+            android:textSize="12sp"
+            android:textColor="@color/orange"
+            android:layout_gravity="right" />
+
+    </FrameLayout>
+
+
 </LinearLayout>
