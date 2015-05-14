@@ -25,4 +25,24 @@ public interface GoogleServices {
      * Handle the sign out click
      */
     public void onSignOutButtonClicked();
+
+    /**
+     * Unlock an achievement
+     * @param achievementCode the Google Play Services code of the achievement
+     */
+    public void unlockAchievement(String achievementCode);
+
+    /**
+     * Increment the value of an incremental achievement
+     * @param achievementCode the Google Play Services code of the achievement
+     */
+    public void incrementAchievement(String achievementCode);
+
+    /**
+     * Update the user's score
+     * @param score the new score
+     */
+    public void updateHighScore(String leaderBoardCode, int score);
+
+
 }

@@ -16,4 +16,5 @@
     <string name="tictacchec_title">Tic Tac Check title</string>
     <string name="leaderBoards">Leader Boards</string>
     <string name="achievements">Achievements</string>
+    <string name="achievement">Achievement</string>
 </resources>

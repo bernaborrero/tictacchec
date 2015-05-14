@@ -1,6 +1,5 @@
 package com.deltagames.tictacchec.View;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +9,7 @@ import com.deltagames.tictacchec.Model.Players.Player;
 import com.deltagames.tictacchec.R;
 
 
-public class GameActivity extends Activity {
+public class GameActivity extends BaseActivity {
 
     public static final String GAME_MODE = "GAME_MODE";
 
@@ -35,6 +34,7 @@ public class GameActivity extends Activity {
                 enemy = new HumanPlayer();
                 break;
         }
+
     }
 
 }

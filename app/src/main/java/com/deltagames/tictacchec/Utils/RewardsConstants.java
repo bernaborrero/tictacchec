@@ -6,11 +6,14 @@ package com.deltagames.tictacchec.Utils;
  */
 public abstract class RewardsConstants {
 
+    public static final String SCORES_FILE = "savedScores";
+
     public static abstract class Achievements {
 
         /**
          * Games played
          */
+        public static final String GAMES_PLAYED = "GAMES_PLAYED";
         public static final String firstGamePlayed = "CgkIi5711N4BEAIQAQ";
         public static final String tenGamesPlayed = "CgkIi5711N4BEAIQBA";
         public static final String fiftyGamesPlayed = "CgkIi5711N4BEAIQBQ";
@@ -19,6 +22,7 @@ public abstract class RewardsConstants {
         /**
          * Games won
          */
+        public static final String GAMES_WON = "GAMES_WON";
         public static final String firstGameWon = "CgkIi5711N4BEAIQBw";
         public static final String tenGamesWon = "CgkIi5711N4BEAIQCA";
         public static final String fiftyGamesWon = "CgkIi5711N4BEAIQCQ";
@@ -30,6 +34,7 @@ public abstract class RewardsConstants {
         /**
          * High Score
          */
+        public static final String HIGH_SCORE = "HIGH_SCORE";
         public static final String highScore = "CgkIi5711N4BEAIQAw";
     }
 

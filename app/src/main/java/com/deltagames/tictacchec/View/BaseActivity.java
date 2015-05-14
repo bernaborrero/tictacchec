@@ -1,10 +1,13 @@
 package com.deltagames.tictacchec.View;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.deltagames.tictacchec.R;
 import com.deltagames.tictacchec.Utils.GoogleServices;
+import com.deltagames.tictacchec.Utils.RewardsConstants;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
@@ -22,6 +25,7 @@ public class BaseActivity extends BaseGameActivity implements GoogleApiClient.Co
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient googleApiClient;
+    private SharedPreferences sharedPref;
 
     private boolean resolvingConnectionFailure;
     private boolean signInClicked;
@@ -33,6 +37,8 @@ public class BaseActivity extends BaseGameActivity implements GoogleApiClient.Co
         super.onCreate(b);
 
         setUpGooglePlayServices();
+
+        sharedPref = this.getSharedPreferences(RewardsConstants.SCORES_FILE, Context.MODE_PRIVATE);
     }
 
     /**
@@ -154,6 +160,127 @@ public class BaseActivity extends BaseGameActivity implements GoogleApiClient.Co
         }
 
         showSignIn = true;
+    }
+
+    @Override
+    public void unlockAchievement(String achievementCode) {
+        if (isSignedIn()) {
+            Games.Achievements.unlock(googleApiClient, achievementCode);
+        }
+    }
+
+    @Override
+    public void incrementAchievement(String achievementCode) {
+        if (isSignedIn()) {
+            Games.Achievements.increment(googleApiClient, achievementCode, 1);
+        }
+    }
+
+    @Override
+    public void updateHighScore(String leaderBoardCode, int score) {
+        if (isSignedIn()) {
+            Games.Leaderboards.submitScore(googleApiClient, leaderBoardCode, score);
+        }
+    }
+
+    /**
+     * Update the Google Play Services games played
+     */
+    private void updateGamesPlayed() {
+        int gamesPlayed = sharedPref.getInt(RewardsConstants.Achievements.GAMES_PLAYED, 0);
+
+        if (gamesPlayed == 1) {
+            unlockAchievement(RewardsConstants.Achievements.firstGamePlayed);
+            incrementAchievement(RewardsConstants.Achievements.tenGamesPlayed);
+            incrementAchievement(RewardsConstants.Achievements.fiftyGamesPlayed);
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesPlayed);
+        }
+        else if (gamesPlayed >= 2 && gamesPlayed <= 10) {
+            incrementAchievement(RewardsConstants.Achievements.tenGamesPlayed);
+            incrementAchievement(RewardsConstants.Achievements.fiftyGamesPlayed);
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesPlayed);
+        }
+        else if (gamesPlayed >= 11 && gamesPlayed <= 50) {
+            incrementAchievement(RewardsConstants.Achievements.fiftyGamesPlayed);
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesPlayed);
+        }
+        else if (gamesPlayed >= 51 && gamesPlayed <= 100) {
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesPlayed);
+        }
+    }
+
+    /**
+     * Update the Google Play Services games won
+     */
+    private void updateGamesWon() {
+        int gamesWon = sharedPref.getInt(RewardsConstants.Achievements.GAMES_WON, 0);
+
+        if (gamesWon == 1) {
+            unlockAchievement(RewardsConstants.Achievements.firstGameWon);
+            incrementAchievement(RewardsConstants.Achievements.tenGamesWon);
+            incrementAchievement(RewardsConstants.Achievements.fiftyGamesWon);
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesWon);
+        }
+        else if (gamesWon >= 2 && gamesWon <= 10) {
+            incrementAchievement(RewardsConstants.Achievements.tenGamesWon);
+            incrementAchievement(RewardsConstants.Achievements.fiftyGamesWon);
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesWon);
+        }
+        else if (gamesWon >= 11 && gamesWon <= 50) {
+            incrementAchievement(RewardsConstants.Achievements.fiftyGamesWon);
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesWon);
+        }
+        else if (gamesWon >= 51 && gamesWon <= 100) {
+            incrementAchievement(RewardsConstants.Achievements.aHundredGamesWon);
+        }
+    }
+
+    /**
+     * Update the Google Play Services leader boards
+     */
+    private void updateLeaderBoard() {
+        int highScore = sharedPref.getInt(RewardsConstants.LeaderBoards.HIGH_SCORE, 0);
+        updateHighScore(RewardsConstants.LeaderBoards.highScore, highScore);
+    }
+
+    /**
+     * Increment the number of games the user has played
+     */
+    public void incrementGamesPlayed() {
+        int gamesPlayed = sharedPref.getInt(RewardsConstants.Achievements.GAMES_PLAYED, 0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putInt(RewardsConstants.Achievements.GAMES_PLAYED, ++gamesPlayed);
+        editor.commit();
+
+        updateGamesPlayed();
+    }
+
+    /**
+     * Increment the number of games the user has won
+     */
+    public void incrementGamesWon() {
+        int gamesWon = sharedPref.getInt(RewardsConstants.Achievements.GAMES_WON, 0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putInt(RewardsConstants.Achievements.GAMES_WON, ++gamesWon);
+        editor.commit();
+
+        updateGamesWon();
+    }
+
+    /**
+     * Increment the high score of the user
+     * @param score the score to add to the current high score
+     */
+    public void incrementScore(int score) {
+        int highScore = sharedPref.getInt(RewardsConstants.LeaderBoards.HIGH_SCORE, 0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putInt(RewardsConstants.LeaderBoards.HIGH_SCORE, highScore + score);
+        editor.commit();
+
+        updateLeaderBoard();
     }
 
     /**

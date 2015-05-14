@@ -60,7 +60,7 @@ public class MainMenuActivity extends BaseActivity {
                     case R.id.playWithComputerButton:
                         Intent computerIntent = new Intent(getBaseContext(), GameActivity.class);
                         computerIntent.putExtra(GameActivity.GAME_MODE, GameActivity.GameMode.COMPUTER);
-                        startActivity(computerIntent);
+                         startActivity(computerIntent);
                         break;
                     case R.id.playWithPersonButton:
                         Intent personIntent = new Intent(getBaseContext(), GameActivity.class);
