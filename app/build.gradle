@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'tictaccheckey'
             keyPassword 'Deltagames0'
-            storeFile file('C:/Users/Maxi/Desktop/android.jks')
+            storeFile file('/home/berna/android.jks')
             storePassword 'Deltagames0'
         }
     }

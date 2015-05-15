@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deltagames.tictacchec.R;
 import com.deltagames.tictacchec.View.Utils.BoldTextView;
@@ -47,6 +48,12 @@ public class MainMenuActivity extends BaseActivity {
     private void updateSignInButtons() {
         signInButton.setVisibility(isShowSignIn() ? View.VISIBLE : View.GONE);
         signOutButton.setVisibility(isShowSignIn() ? View.GONE : View.VISIBLE);
+
+        int orange = getResources().getColor(R.color.orange);
+        int fadedOrange = getResources().getColor(R.color.fadedOrange);
+
+        openLeaderBoardsButton.setTextColor(isShowSignIn() ? fadedOrange : orange);
+        openAchievementsButton.setTextColor(isShowSignIn() ? fadedOrange : orange);
     }
 
     /**
@@ -68,10 +75,20 @@ public class MainMenuActivity extends BaseActivity {
                         startActivity(personIntent);
                         break;
                     case R.id.openLeaderBoardsButton:
-                        onShowLeaderBoardsRequested();
+                        if (isShowSignIn()) {
+                            Toast.makeText(getBaseContext(), R.string.signin_leaderboards_error, Toast.LENGTH_SHORT).show();
+                        } else {
+                            onShowLeaderBoardsRequested();
+                        }
+
                         break;
                     case R.id.openAchievementsButton:
-                        onShowAchievementsRequested();
+                        if (isShowSignIn()) {
+                            Toast.makeText(getBaseContext(), R.string.signin_achievements_error, Toast.LENGTH_SHORT).show();
+                        } else {
+                            onShowAchievementsRequested();
+                        }
+
                         break;
                     case R.id.signInButton:
                         onSignInButtonClicked();

@@ -17,4 +17,6 @@
     <string name="leaderBoards">Leader Boards</string>
     <string name="achievements">Achievements</string>
     <string name="achievement">Achievement</string>
+    <string name="signin_leaderboards_error">You must sign in to see the leader boards</string>
+    <string name="signin_achievements_error">You must sign in to see the achievements</string>
 </resources>
