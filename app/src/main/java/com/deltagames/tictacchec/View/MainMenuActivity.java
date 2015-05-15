@@ -52,6 +52,7 @@ public class MainMenuActivity extends BaseActivity {
         int orange = getResources().getColor(R.color.orange);
         int fadedOrange = getResources().getColor(R.color.fadedOrange);
 
+        playWithPersonButton.setTextColor(isShowSignIn() ? fadedOrange : orange);
         openLeaderBoardsButton.setTextColor(isShowSignIn() ? fadedOrange : orange);
         openAchievementsButton.setTextColor(isShowSignIn() ? fadedOrange : orange);
     }
@@ -70,9 +71,14 @@ public class MainMenuActivity extends BaseActivity {
                          startActivity(computerIntent);
                         break;
                     case R.id.playWithPersonButton:
-                        Intent personIntent = new Intent(getBaseContext(), GameActivity.class);
-                        personIntent.putExtra(GameActivity.GAME_MODE, GameActivity.GameMode.PERSON);
-                        startActivity(personIntent);
+                        if (isShowSignIn()) {
+                            Toast.makeText(getBaseContext(), R.string.signin_playWithPerson_error, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent personIntent = new Intent(getBaseContext(), GameActivity.class);
+                            personIntent.putExtra(GameActivity.GAME_MODE, GameActivity.GameMode.PERSON);
+                            startActivity(personIntent);
+                        }
+
                         break;
                     case R.id.openLeaderBoardsButton:
                         if (isShowSignIn()) {
