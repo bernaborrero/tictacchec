@@ -104,6 +104,17 @@ public class Board {
         piece.getPlayer().emptyMoves();
     }
 
+    public void set(Piece[] pieces){
+        for(Piece piece: pieces){
+            initSet(piece);
+        }
+    }
+
+    public void initSet(Piece piece){
+        board[piece.getCoordinates().getX()][piece.getCoordinates().getY()]=piece;
+    }
+
+
     /**
      * Checks if a pair of Coordinates are in the bounds of the board
      *

@@ -18,6 +18,7 @@ public abstract class Piece {
     private Color color;
     private Moves possibleMoves;
     private boolean inBoard;
+    private int imagePath;
 
     /**
      * Basic constructor
@@ -38,12 +39,13 @@ public abstract class Piece {
      * @param color the Color of the Piece
      * @param imagePath path of the image of the texture
      */
-    public Piece(Player player, Coordinates coordinates, Color color, String imagePath) {
+    public Piece(Player player, Coordinates coordinates, Color color, int imagePath) {
         this.player = player;
         this.coordinates = coordinates;
         this.color = color;
         this.possibleMoves = new Moves();
         this.inBoard = false;
+        this.imagePath=imagePath;
     }
 
     /**
@@ -130,4 +132,10 @@ public abstract class Piece {
     public void setInBoard(boolean inBoard) {
         this.inBoard = inBoard;
     }
+
+    public int getImagePath(){
+        return this.imagePath;
+    }
+
+    public void setImagePath(int path){this.imagePath=path;}
 }

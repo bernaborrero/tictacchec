@@ -6,6 +6,7 @@ import com.deltagames.tictacchec.Model.Board.Move;
 import com.deltagames.tictacchec.Model.Board.Moves;
 import com.deltagames.tictacchec.Model.Players.Player;
 import com.deltagames.tictacchec.Model.Utils.Color;
+import com.deltagames.tictacchec.R;
 
 /**
  * Class to manage a knight
@@ -19,10 +20,9 @@ public class Knight extends Piece {
      * @param color the Color of the Piece
      */
 
-    private final static String IMAGE_PATH="img/Knight.jpg";
 
     public Knight(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, IMAGE_PATH);
+        super(player, coordinates, color, R.drawable.knight);
     }
 
     @Override

@@ -221,10 +221,11 @@ public abstract class Player {
     }
 
     public void createPieces(){
-        pieces[0]= new Pawn(this,new Coordinates(),this.getColor());
-        pieces[1]= new Bishop(this,new Coordinates(),this.getColor());
-        pieces[2]= new Knight(this,new Coordinates(),this.getColor());
-        pieces[3]= new Rook(this,new Coordinates(),this.getColor());
+        pieces[0]= new Pawn(this,new Coordinates(0,0),this.getColor());
+        pieces[1]= new Bishop(this,new Coordinates(1,0),this.getColor());
+        pieces[2]= new Knight(this,new Coordinates(2,0),this.getColor());
+        pieces[3]= new Rook(this,new Coordinates(3,0),this.getColor());
+
     }
 
 }

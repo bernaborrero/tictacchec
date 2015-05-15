@@ -36,7 +36,7 @@ public abstract class LinearPiece extends Piece {
         directions = new Direction[] {};
     }
 
-    public LinearPiece(Player player, Coordinates coordinates, Color color, String imagePath) {
+    public LinearPiece(Player player, Coordinates coordinates, Color color, int imagePath) {
         super(player, coordinates, color, imagePath);
         directions = new Direction[] {};
     }

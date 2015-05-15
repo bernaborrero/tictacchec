@@ -1,8 +1,9 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
-import com.deltagames.tictacchec.Model.Utils.Color;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Players.Player;
+import com.deltagames.tictacchec.Model.Utils.Color;
+import com.deltagames.tictacchec.R;
 
 /**
  * Class to manage a bishop
@@ -10,7 +11,6 @@ import com.deltagames.tictacchec.Model.Players.Player;
  */
 public class Bishop extends LinearPiece {
 
-    private final static String IMAGE_PATH="img/Bishop.jpg";
     /**
      * Basic constructor
      * @param coordinates the initial coordinates of the Piece
@@ -18,7 +18,7 @@ public class Bishop extends LinearPiece {
      */
 
     public Bishop(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, IMAGE_PATH);
+        super(player, coordinates, color, R.drawable.bishop);
         setDirections(new Direction[]{
                 Direction.UP_LEFT, Direction.UP_RIGHT, Direction.DOWN_RIGHT, Direction.DOWN_LEFT
         });

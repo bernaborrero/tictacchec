@@ -1,8 +1,9 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
-import com.deltagames.tictacchec.Model.Utils.Color;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Players.Player;
+import com.deltagames.tictacchec.Model.Utils.Color;
+import com.deltagames.tictacchec.R;
 
 /**
  * Class to manage a rook
@@ -10,7 +11,6 @@ import com.deltagames.tictacchec.Model.Players.Player;
  */
 public class Rook extends LinearPiece {
 
-    private final static String IMAGE_PATH="img/Rook.jpg";
 
     /**
      * Basic constructor
@@ -19,7 +19,7 @@ public class Rook extends LinearPiece {
      * @param color       the Color of the Piece
      */
     public Rook(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, IMAGE_PATH);
+        super(player, coordinates, color, R.drawable.rook);
         setDirections(new Direction[]{
                 Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT
         });
