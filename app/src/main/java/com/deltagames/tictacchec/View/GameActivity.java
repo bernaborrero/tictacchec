@@ -1,9 +1,13 @@
 package com.deltagames.tictacchec.View;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import com.deltagames.tictacchec.Model.Board.Board;
@@ -30,15 +34,34 @@ public class GameActivity extends BaseActivity {
     private Board board;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        board= new Board();
+        setGrid();
         Intent intent = getIntent();
+        board = new Board();
         GameMode gameMode = (GameMode) intent.getSerializableExtra(GAME_MODE);
-        initPlayers(GameMode.PERSON,gameMode);
-        board.set(player.getPieces());
+        initPlayers(GameMode.PERSON, gameMode);
         initCells();
+        board.set(player.getPieces());
         checkBoard();
+    }
+
+    private void setGrid(){
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+
+        GridLayout grid = (GridLayout)findViewById(R.id.gridLayout);
+        ViewGroup.LayoutParams params=grid.getLayoutParams();
+        params.width= width-4;
+        params.height= width;
+
+        grid.setLayoutParams(params);
+
     }
 
 
@@ -162,12 +185,21 @@ public class GameActivity extends BaseActivity {
                     if(piece.getColor()==player.getColor()){
                         checkPreviousPiece(piece);
                     }else{
+
+                        if(moveIsAllowed(piece))
                         board.set(piece, piece.getCoordinates().getX(),piece.getCoordinates().getY());
                         cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
                         previousPiece=null;
+                        validMoves=null;
 
                     }
                 }
+
+            }
+
+            private boolean moveIsAllowed(Piece piece) {
+
+                return validMoves.hasCoordinateInMoves(piece.getCoordinates());
 
             }
 
@@ -182,6 +214,7 @@ public class GameActivity extends BaseActivity {
                     validMoves=previousPiece.getValidMoves(board);
                 }
             }
+
         });
     }
 
