@@ -176,24 +176,34 @@ public class GameActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                Coordinates coord = ((CustomImageView)v).getCoordinates();
-
-                Piece piece = board.get(coord);
-                if(previousPiece==null){
+		try{
+                	Coordinates coord = ((CustomImageView)v).getCoordinates();
+            Piece piece = board.get(coord);
+            if(previousPiece==null){
+                checkPreviousPiece(piece);
+                ((CustomImageView)v).setImageResource(R.drawable.redbackground);
+            }else{
+                if(piece!=null && piece.getColor()==player.getColor()){
                     checkPreviousPiece(piece);
                 }else{
-                    if(piece.getColor()==player.getColor()){
-                        checkPreviousPiece(piece);
-                    }else{
 
-                        if(moveIsAllowed(piece))
+                    if(moveIsAllowed(piece)){
                         board.set(piece, piece.getCoordinates().getX(),piece.getCoordinates().getY());
                         cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
                         previousPiece=null;
                         validMoves=null;
-
                     }
+
+
                 }
+            }
+
+		}catch(Exception e){
+			Log.i("actionError", e.getMessage());
+		}
+
+		
+
 
             }
 
@@ -203,18 +213,19 @@ public class GameActivity extends BaseActivity {
 
             }
 
-            /*
+    /*
     sets the previous piece with the last piece touched by the user
     and calculates it's possible moves
      */
             private void checkPreviousPiece(Piece piece){
-                if(piece.getColor()==player.getColor()){
-                    previousPiece=piece;
-                    prevCoords=piece.getCoordinates();
-                    validMoves=previousPiece.getValidMoves(board);
-                }
-            }
+	                if(piece!=null && piece.getColor()==player.getColor()){
+  	                  	previousPiece=piece;
+         	          	prevCoords=piece.getCoordinates();
+                        validMoves=previousPiece.getValidMoves(board);
+                	}
 
+	    }
+	
         });
     }
 

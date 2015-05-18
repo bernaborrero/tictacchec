@@ -11,7 +11,7 @@ import com.deltagames.tictacchec.Model.Utils.Color;
  * Abstract class to manage a single piece
  * Created by Bernabé Borrero on 23/04/15.
  */
-public abstract class Piece {
+public abstract class Piece implements Comparable{
 
     private Player player;
     private Coordinates coordinates;
@@ -138,4 +138,17 @@ public abstract class Piece {
     }
 
     public void setImagePath(int path){this.imagePath=path;}
+
+    @Override
+    public int compareTo(Object another) {
+        Piece other = (Piece)another;
+        this.getC
+
+
+        if(other.getClass()==this.getClass() && this.getColor()==other.getColor()){
+            return 0;
+        }else if(){
+            return -1;
+        }
+    }
 }
