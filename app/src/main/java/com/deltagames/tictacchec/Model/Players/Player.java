@@ -45,7 +45,7 @@ public abstract class Player {
 
         horizontalPositions = new int[Board.ROWS][Board.COLS];
         verticalPositions = new int[Board.COLS][Board.ROWS];
-        diagonalPositions = new int[Board.DIAGONAL_CELLS][2];
+        diagonalPositions = new int[2][Board.DIAGONAL_CELLS];
     }
 
     public void setActivePieces(int activePieces) {
