@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
+import com.deltagames.tictacchec.Model.Board.Move;
 import com.deltagames.tictacchec.Model.Board.Moves;
 import com.deltagames.tictacchec.Model.CustomImageView;
 import com.deltagames.tictacchec.Model.Pieces.Piece;
@@ -19,6 +20,8 @@ import com.deltagames.tictacchec.Model.Players.Arnold;
 import com.deltagames.tictacchec.Model.Players.HumanPlayer;
 import com.deltagames.tictacchec.Model.Players.Player;
 import com.deltagames.tictacchec.R;
+
+import java.util.Iterator;
 
 
 public class GameActivity extends BaseActivity {
@@ -182,21 +185,29 @@ public class GameActivity extends BaseActivity {
             Piece piece = board.get(coord);
             if(previousPiece==null){
                 checkPreviousPiece(piece);
-                ((CustomImageView)v).setImageResource(R.drawable.redbackground);
             }else{
                 if(piece!=null && piece.getColor()==player.getColor()){
+                    Log.i("touch debbug", "Previous Piece changed");
                     checkPreviousPiece(piece);
                 }else{
-
-                    if(moveIsAllowed(piece)){
-                        board.set(piece, piece.getCoordinates().getX(),piece.getCoordinates().getY());
+                    Log.i("touch debbug", "Previous Piece is not null");
+                    if(moveIsAllowed(coord)){
+                        Log.i("touch debbug", "move allowed");
+                        board.set(previousPiece, coord);
                         cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
+                        cells[coord.getX()][coord.getY()].setImageResource(previousPiece.getImagePath());
                         previousPiece=null;
+                        prevCoords=null;
                         validMoves=null;
                     }
 
 
                 }
+            }
+            if(previousPiece!=null){
+                Log.i("touch debbug", "Piece is still stored");
+            }else{
+                Log.i("touch debbug", "Piece is null");
             }
 
 		}catch(Exception e){
@@ -208,9 +219,21 @@ public class GameActivity extends BaseActivity {
 
             }
 
-            private boolean moveIsAllowed(Piece piece) {
+            private boolean moveIsAllowed(Coordinates coord) {
 
-                return validMoves.hasCoordinateInMoves(piece.getCoordinates());
+                Iterator i = validMoves.iterator();
+
+                while(i.hasNext()){
+                    Coordinates c = ((Move)i.next()).getCoordinates();
+                    Log.i("available moves", "x: "+c.getX()+", y: "+c.getY());
+                }
+
+
+
+
+
+
+                return validMoves.hasCoordinateInMoves(coord);
 
             }
 

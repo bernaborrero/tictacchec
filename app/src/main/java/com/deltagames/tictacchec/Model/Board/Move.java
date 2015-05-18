@@ -49,11 +49,11 @@ public class Move implements Comparable {
 
         Move other = (Move) o;
 
-        if (this.getPiece().compareTo(other) == 0) {
+        if (this.getPiece().compareTo(other.getPiece()) == 0) {
             return (this.getCoordinates().compareTo(other.getCoordinates()));
         }
         else {
-            return this.getPiece().compareTo(other);
+            return this.getPiece().compareTo(other.getPiece());
         }
     }
 }
