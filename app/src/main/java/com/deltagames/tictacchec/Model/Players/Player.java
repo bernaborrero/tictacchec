@@ -74,6 +74,9 @@ public abstract class Player {
      */
     public void emptyMoves() {
         moves.empty();
+        for (Piece piece : getPieces()) {
+            piece.emptyMoves();
+        }
     }
 
     /**

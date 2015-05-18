@@ -10,6 +10,7 @@ import com.deltagames.tictacchec.R;
 import com.deltagames.tictacchec.View.Utils.BoldTextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.games.Games;
 
 
 public class MainMenuActivity extends BaseActivity {
@@ -74,9 +75,12 @@ public class MainMenuActivity extends BaseActivity {
                         if (isShowSignIn()) {
                             Toast.makeText(getBaseContext(), R.string.signin_playWithPerson_error, Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent personIntent = new Intent(getBaseContext(), GameActivity.class);
-                            personIntent.putExtra(GameActivity.GAME_MODE, GameActivity.GameMode.PERSON);
-                            startActivity(personIntent);
+//                            Intent personIntent = new Intent(getBaseContext(), GameActivity.class);
+//                            personIntent.putExtra(GameActivity.GAME_MODE, GameActivity.GameMode.PERSON);
+//                            startActivity(personIntent);
+
+                            Intent personIntent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(getApiClient(), 1, 1, true);
+                            startActivityForResult(personIntent, 800);
                         }
 
                         break;

@@ -111,7 +111,7 @@ public class Board {
     }
 
     public void initSet(Piece piece){
-        board[piece.getCoordinates().getX()][piece.getCoordinates().getY()]=piece;
+        board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = piece;
     }
 
 

@@ -85,6 +85,13 @@ public abstract class Piece implements Comparable {
     }
 
     /**
+     * Empty the possible moves of the Piece
+     */
+    public void emptyMoves() {
+        this.possibleMoves.empty();
+    }
+
+    /**
      * Checks if a piece can kill another piece
      * ATTENTION: this method does not take in consideration the position of the pieces
      * @param piece the victim Piece
