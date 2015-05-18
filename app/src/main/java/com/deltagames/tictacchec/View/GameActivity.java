@@ -32,6 +32,7 @@ public class GameActivity extends BaseActivity {
     private Player enemy, player;
     private CustomImageView[][] cells;
     private Board board;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

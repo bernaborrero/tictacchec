@@ -19,7 +19,7 @@ public class Rook extends LinearPiece {
      * @param color       the Color of the Piece
      */
     public Rook(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, R.drawable.rook);
+        super(PieceType.ROOK, player, coordinates, color, R.drawable.rook);
         setDirections(new Direction[]{
                 Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT
         });

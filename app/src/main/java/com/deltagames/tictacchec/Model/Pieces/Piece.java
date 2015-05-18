@@ -11,11 +11,16 @@ import com.deltagames.tictacchec.Model.Utils.Color;
  * Abstract class to manage a single piece
  * Created by Bernabé Borrero on 23/04/15.
  */
-public abstract class Piece implements Comparable{
+public abstract class Piece implements Comparable {
+
+    public enum PieceType {
+        BISHOP, KNIGHT, PAWN, ROOK
+    }
 
     private Player player;
     private Coordinates coordinates;
     private Color color;
+    private PieceType pieceType;
     private Moves possibleMoves;
     private boolean inBoard;
     private int imagePath;
@@ -25,7 +30,8 @@ public abstract class Piece implements Comparable{
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
-    public Piece(Player player, Coordinates coordinates, Color color) {
+    public Piece(PieceType pieceType, Player player, Coordinates coordinates, Color color) {
+        this.pieceType = pieceType;
         this.player = player;
         this.coordinates = coordinates;
         this.color = color;
@@ -34,18 +40,14 @@ public abstract class Piece implements Comparable{
     }
 
     /**
-     * Basic constructor
+     * Constructor with image path specification
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      * @param imagePath path of the image of the texture
      */
-    public Piece(Player player, Coordinates coordinates, Color color, int imagePath) {
-        this.player = player;
-        this.coordinates = coordinates;
-        this.color = color;
-        this.possibleMoves = new Moves();
-        this.inBoard = false;
-        this.imagePath=imagePath;
+    public Piece(PieceType pieceType, Player player, Coordinates coordinates, Color color, int imagePath) {
+        this(pieceType, player, coordinates, color);
+        this.imagePath = imagePath;
     }
 
     /**
@@ -117,6 +119,14 @@ public abstract class Piece implements Comparable{
         this.color = color;
     }
 
+    protected PieceType getPieceType() {
+        return pieceType;
+    }
+
+    protected void setPieceType(PieceType pieceType) {
+        this.pieceType = pieceType;
+    }
+
     protected Moves getPossibleMoves() {
         return possibleMoves;
     }
@@ -140,15 +150,37 @@ public abstract class Piece implements Comparable{
     public void setImagePath(int path){this.imagePath=path;}
 
     @Override
-    public int compareTo(Object another) {
-        Piece other = (Piece)another;
-        this.getC
+    public int compareTo(Object o) {
 
+        Piece other = (Piece) o;
 
-        if(other.getClass()==this.getClass() && this.getColor()==other.getColor()){
-            return 0;
-        }else if(){
-            return -1;
+        if (this.getColor() != other.getColor()) {
+            return (getColor() == Color.WHITE) ? 1 : -1;
+        } else {
+            if (this.getPieceType() == other.getPieceType()) {
+                return getCoordinates().compareTo(other.getCoordinates());
+            }
+            else if (this.getPieceType() == PieceType.BISHOP) {
+                return 1;
+            }
+            else if (this.getPieceType() == PieceType.KNIGHT &&
+                    other.getPieceType() == PieceType.BISHOP) {
+                return -1;
+            }
+            else if (this.getPieceType() == PieceType.ROOK &&
+                    (other.getPieceType() == PieceType.KNIGHT ||
+                            other.getPieceType() == PieceType.BISHOP)) {
+                return -1;
+            }
+            else if (this.getPieceType() == PieceType.PAWN &&
+                    (other.getPieceType() == PieceType.ROOK ||
+                            other.getPieceType() == PieceType.KNIGHT ||
+                            other.getPieceType() == PieceType.BISHOP)) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
         }
     }
 }

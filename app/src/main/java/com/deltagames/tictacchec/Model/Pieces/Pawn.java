@@ -25,7 +25,7 @@ public class Pawn extends Piece {
      * @param color the Color of the Piece
      */
     public Pawn(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, R.drawable.pawn);
+        super(PieceType.PAWN, player, coordinates, color, R.drawable.pawn);
 
         setInitialRightDirection(coordinates);
     }

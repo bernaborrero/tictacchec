@@ -1,13 +1,12 @@
 package com.deltagames.tictacchec.Model.Board;
 
 import com.deltagames.tictacchec.Model.Pieces.Piece;
-import com.deltagames.tictacchec.Model.Utils.Color;
 
 /**
  * Class to store a single Move
  * Created by Bernabé Borrero on 28/04/15.
  */
-public class Move implements Comparable{
+public class Move implements Comparable {
 
     private Piece piece;
     private Coordinates coordinates;
@@ -46,22 +45,15 @@ public class Move implements Comparable{
 
 
     @Override
-    public int compareTo(Object another) {
-        Move other = (Move)another;
-        if(this.getPiece().compareTo(other.getPiece())==0&& this.getCoordinates().compareTo(other.getCoordinates())==0){
-            return 0;
+    public int compareTo(Object o) {
+
+        Move other = (Move) o;
+
+        if (this.getPiece().compareTo(other) == 0) {
+            return (this.getCoordinates().compareTo(other.getCoordinates()));
         }
-
-        if(this.getPiece().getColor()== Color.WHITE){
-            (this.getPiece().compareTo(other.getPiece())==-1 && (this.getCoordinates().compareTo(other.getCoordinates())==0 || this.getCoordinates().compareTo(other.getCoordinates())==-1){
-                return -1;
-            }
-
-            (this.getPiece().equals)
-        }else{
-
+        else {
+            return this.getPiece().compareTo(other);
         }
-
-
     }
 }

@@ -22,7 +22,7 @@ public class Knight extends Piece {
 
 
     public Knight(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, R.drawable.knight);
+        super(PieceType.KNIGHT, player, coordinates, color, R.drawable.knight);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class Bishop extends LinearPiece {
      */
 
     public Bishop(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, R.drawable.bishop);
+        super(PieceType.BISHOP, player, coordinates, color, R.drawable.bishop);
         setDirections(new Direction[]{
                 Direction.UP_LEFT, Direction.UP_RIGHT, Direction.DOWN_RIGHT, Direction.DOWN_LEFT
         });

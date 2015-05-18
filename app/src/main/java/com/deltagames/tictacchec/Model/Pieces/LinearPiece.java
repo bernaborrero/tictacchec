@@ -31,13 +31,13 @@ public abstract class LinearPiece extends Piece {
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
-    public LinearPiece(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color);
+    public LinearPiece(PieceType pieceType, Player player, Coordinates coordinates, Color color) {
+        super(pieceType, player, coordinates, color);
         directions = new Direction[] {};
     }
 
-    public LinearPiece(Player player, Coordinates coordinates, Color color, int imagePath) {
-        super(player, coordinates, color, imagePath);
+    public LinearPiece(PieceType pieceType, Player player, Coordinates coordinates, Color color, int imagePath) {
+        super(pieceType, player, coordinates, color, imagePath);
         directions = new Direction[] {};
     }
 
