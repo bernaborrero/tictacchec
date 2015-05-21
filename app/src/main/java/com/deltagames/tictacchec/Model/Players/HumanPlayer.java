@@ -6,17 +6,23 @@ import com.deltagames.tictacchec.Model.Board.Board;
 import java.util.concurrent.Semaphore;
 
 /**
+ * The user will play with this Human Player
  * Created by Maxi on 27/04/2015.
  */
 public class HumanPlayer extends Player {
 
+    public static final String stringPlayer = "H";
     UserInputListener listener;
 
     @Override
     public void move(Board board, Player enemy, Semaphore blockingSemaphore) {
-        if(listener==null){
-            listener= new UserInputListener(this,board);
+        if (listener == null) {
+            listener = new UserInputListener(this,board);
         }
-        // Gdx.input.setInputProcessor(listener);
+    }
+
+    @Override
+    public String toString() {
+        return stringPlayer;
     }
 }

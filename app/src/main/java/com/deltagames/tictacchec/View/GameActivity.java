@@ -20,6 +20,7 @@ import com.deltagames.tictacchec.Model.Players.Arnold;
 import com.deltagames.tictacchec.Model.Players.HumanPlayer;
 import com.deltagames.tictacchec.Model.Players.Player;
 import com.deltagames.tictacchec.R;
+import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 
 import java.util.Iterator;
 
@@ -27,6 +28,8 @@ import java.util.Iterator;
 public class GameActivity extends BaseActivity {
 
     public static final String GAME_MODE = "GAME_MODE";
+    public static final String GAME_CREATE = "GAME_CREATE";
+    public static final String GAME_MATCH = "GAME_MATCH";
 
     public enum GameMode {
         COMPUTER, PERSON
@@ -35,6 +38,10 @@ public class GameActivity extends BaseActivity {
     private Player enemy, player;
     private CustomImageView[][] cells;
     private Board board;
+
+    private Piece previousPiece;
+    private Coordinates prevCoords;
+    private Moves validMoves;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +52,15 @@ public class GameActivity extends BaseActivity {
         Intent intent = getIntent();
         board = new Board();
         GameMode gameMode = (GameMode) intent.getSerializableExtra(GAME_MODE);
+
+        if (gameMode == GameMode.PERSON) {
+            TurnBasedMatch match = (TurnBasedMatch) intent.getParcelableExtra(GAME_MATCH);
+            match.getData();
+        }
+
         initPlayers(GameMode.PERSON, gameMode);
         initCells();
-        board.set(player.getPieces());
+        board.set(player.getPieces());  // TODO: set the pieces of the enemy
         checkBoard();
     }
 
@@ -84,7 +97,7 @@ public class GameActivity extends BaseActivity {
     }
 
     private void initCells() {
-        cells= new CustomImageView[4][4];
+        cells= new CustomImageView[Board.COLS][Board.ROWS];
         cells[0][0]= (CustomImageView) findViewById(R.id.imageView00);
         cells[0][0].setCoordinates(new Coordinates(0, 0));
         cells[0][0].setScaleType(ImageView.ScaleType.FIT_XY);
@@ -171,50 +184,47 @@ public class GameActivity extends BaseActivity {
         addActionListener(cells[3][3]);
     }
 
-    private Piece previousPiece;
-    private Coordinates prevCoords;
-    private Moves validMoves;
     private void addActionListener(CustomImageView item){
 
         item.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-		try{
-                	Coordinates coord = ((CustomImageView)v).getCoordinates();
-            Piece piece = board.get(coord);
-            if(previousPiece==null){
-                checkPreviousPiece(piece);
-            }else{
-                if(piece!=null && piece.getColor()==player.getColor()){
-                    Log.i("touch debbug", "Previous Piece changed");
-                    checkPreviousPiece(piece);
-                }else{
-                    Log.i("touch debbug", "Previous Piece is not null");
-                    if(moveIsAllowed(coord)){
-                        Log.i("touch debbug", "move allowed");
-                        board.set(previousPiece, coord);
-                        cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
-                        cells[coord.getX()][coord.getY()].setImageResource(previousPiece.getImagePath());
-                        previousPiece=null;
-                        prevCoords=null;
-                        validMoves=null;
+                try{
+                    Coordinates coord = ((CustomImageView)v).getCoordinates();
+                    Piece piece = board.get(coord);
+                    if(previousPiece==null){
+                        checkPreviousPiece(piece);
+                    }else{
+                        if(piece!=null && piece.getColor()==player.getColor()){
+                            Log.i("touch debbug", "Previous Piece changed");
+                            checkPreviousPiece(piece);
+                        }else{
+                            Log.i("touch debbug", "Previous Piece is not null");
+                            if(moveIsAllowed(coord)){
+                                Log.i("touch debbug", "move allowed");
+                                board.set(previousPiece, coord);
+                                cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
+                                cells[coord.getX()][coord.getY()].setImageResource(previousPiece.getImagePath());
+                                previousPiece=null;
+                                prevCoords=null;
+                                validMoves=null;
+                            }
+
+
+                        }
+                    }
+                    if(previousPiece!=null){
+                        Log.i("touch debbug", "Piece is still stored");
+                    }else{
+                        Log.i("touch debbug", "Piece is null");
                     }
 
-
+                }catch(Exception e){
+                    Log.i("actionError", e.getMessage());
                 }
-            }
-            if(previousPiece!=null){
-                Log.i("touch debbug", "Piece is still stored");
-            }else{
-                Log.i("touch debbug", "Piece is null");
-            }
 
-		}catch(Exception e){
-			Log.i("actionError", e.getMessage());
-		}
 
-		
 
 
             }
@@ -237,19 +247,19 @@ public class GameActivity extends BaseActivity {
 
             }
 
-    /*
-    sets the previous piece with the last piece touched by the user
-    and calculates it's possible moves
-     */
+            /*
+            sets the previous piece with the last piece touched by the user
+            and calculates it's possible moves
+             */
             private void checkPreviousPiece(Piece piece){
-	                if(piece!=null && piece.getColor()==player.getColor()){
-  	                  	previousPiece=piece;
-         	          	prevCoords=piece.getCoordinates();
-                        validMoves=previousPiece.getValidMoves(board);
-                	}
+                if(piece!=null && piece.getColor()==player.getColor()){
+                    previousPiece=piece;
+                    prevCoords=piece.getCoordinates();
+                    validMoves=previousPiece.getValidMoves(board);
+                }
 
-	    }
-	
+            }
+
         });
     }
 

@@ -16,6 +16,7 @@ import java.util.concurrent.Semaphore;
  */
 public class Arnold extends Player {
 
+    public static final String stringPlayer = "A";
     private final String ARNOLD_TAG = "Arnold";
     private final int EXHAUSTIVE_LEVELS = 8;
 
@@ -138,5 +139,10 @@ public class Arnold extends Player {
             return (m1.getWeight() <= m2.getWeight()) ? m1 : m2;
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return stringPlayer;
     }
 }

@@ -1,5 +1,8 @@
 package com.deltagames.tictacchec.Model.Board;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.deltagames.tictacchec.Model.Pieces.Piece;
 
 /**
@@ -7,6 +10,9 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
  * Created by Bernabé Borrero on 24/04/15.
  */
 public class Board {
+
+    private static final String BOARD_ONGOING_GAME_FILE = "BOARD_ONGOING_GAME_FILE";
+    private static final String BOARD_ONGOING_GAME_STATE = "BOARD_ONGOING_GAME_STATE";
 
     /**
      * Number of rows and columns of the board
@@ -157,5 +163,49 @@ public class Board {
         }
 
         return false;
+    }
+
+    /**
+     * Save the state of the board with SharedPreferences
+     * @param context the Application Context
+     */
+    public void save(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(BOARD_ONGOING_GAME_FILE, Context.MODE_PRIVATE);
+
+        String gameState = "";
+        for (int i = 0; i < COLS; i++) {
+            for (int j = 0; j < ROWS; j++) {
+                if (board[i][j] != null) {
+                    gameState += board[i][j];
+                }
+            }
+        }
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(BOARD_ONGOING_GAME_STATE, gameState);
+        editor.apply();
+    }
+
+    /**
+     * Load the saved game to the current board
+     * @param context the Application Context
+     */
+    public void load(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(BOARD_ONGOING_GAME_FILE, Context.MODE_PRIVATE);
+        String gameState = sharedPref.getString(BOARD_ONGOING_GAME_STATE, "");
+
+        Piece[] pieces = new Piece[8];
+
+        for (int i = 0, j = 0; i < 40; i += 5, j++) {
+            pieces[j] = Piece.stringToPiece("" +
+                    gameState.charAt(i) +
+                    gameState.charAt(i + 1) +
+                    gameState.charAt(i + 2) +
+                    gameState.charAt(i + 3) +
+                    gameState.charAt(i + 4)
+            );
+
+            this.set(pieces);
+        }
     }
 }

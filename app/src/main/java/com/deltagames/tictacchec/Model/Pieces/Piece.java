@@ -4,6 +4,8 @@ import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
 import com.deltagames.tictacchec.Model.Board.Moves;
+import com.deltagames.tictacchec.Model.Players.Arnold;
+import com.deltagames.tictacchec.Model.Players.HumanPlayer;
 import com.deltagames.tictacchec.Model.Players.Player;
 import com.deltagames.tictacchec.Model.Utils.Color;
 
@@ -190,4 +192,96 @@ public abstract class Piece implements Comparable {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return getPlayer() + pieceTypeToString() + colorToString() + getCoordinates();
+    }
+
+    /**
+     * Convert the piece type to a string
+     * @return the string representation of the piece type
+     */
+    private String pieceTypeToString() {
+        switch (getPieceType()) {
+            case BISHOP:
+                return "B";
+            case KNIGHT:
+                return "K";
+            case PAWN:
+                return "P";
+            case ROOK:
+                return "R";
+            default:
+                return "";
+        }
+    }
+
+    /**
+     * Convert the color to a string
+     * @return the string representation of the color
+     */
+    private String colorToString() {
+        switch (getColor()) {
+            case WHITE:
+                return "W";
+            case BLACK:
+                return "B";
+            default:
+                return "";
+        }
+    }
+
+    /**
+     * Convert a string to a Piece
+     * @param stringPiece the string representation of a Piece
+     * @return a Piece object based on its string representation
+     */
+    public static Piece stringToPiece(String stringPiece) {
+
+        Piece piece = null;
+        Player player = null;
+        Color color = null;
+
+        switch (stringPiece.charAt(0) + "") {
+            case HumanPlayer.stringPlayer:
+                player = new HumanPlayer();
+                break;
+            case Arnold.stringPlayer:
+                player = new Arnold();
+                break;
+        }
+
+        switch (stringPiece.charAt(2)) {
+            case 'W':
+                color = Color.WHITE;
+                break;
+            case 'B':
+                color = Color.BLACK;
+                break;
+        }
+
+        int x = Integer.parseInt(stringPiece.charAt(3) + "");
+        int y = Integer.parseInt(stringPiece.charAt(4) + "");
+        Coordinates coordinates = new Coordinates(x, y);
+
+        switch (stringPiece.charAt(1)) {
+            case 'B':
+                piece = new Bishop(player, coordinates, color);
+                break;
+            case 'K':
+                piece = new Knight(player, coordinates, color);
+                break;
+            case 'P':
+                piece = new Pawn(player, coordinates, color);
+                break;
+            case 'R':
+                piece = new Rook(player, coordinates, color);
+                break;
+        }
+
+        return piece;
+    }
+
+
 }
