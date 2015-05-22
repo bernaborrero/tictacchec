@@ -105,13 +105,13 @@ public class Board {
      */
     public void set(Piece piece, Coordinates coordinates) {
         board[coordinates.getX()][coordinates.getY()] = piece;
-        if(this.hasInBounds(piece.getCoordinates())){
-            board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
-        }
-
+        board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
         piece.setCoordinates(coordinates);
         piece.getPlayer().emptyMoves();
+
         piece.setInBoard(true);
+
+        // TODO: move killed piece (if killed!) to reserve
     }
 
     public void set(Piece[] pieces){
