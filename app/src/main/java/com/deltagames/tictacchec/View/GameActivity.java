@@ -61,6 +61,16 @@ public class GameActivity extends BaseActivity {
 
     }
 
+
+    private void toggleTurn(){
+        changeTurn(player,enemy);
+    }
+
+    private void changeTurn(Player player, Player enemy) {
+        player.setTurn(false);
+        enemy.setTurn(true);
+    }
+
     private void startGame(){
         checkBoard(0,player);
         checkBoard(1,enemy);
@@ -261,6 +271,9 @@ public class GameActivity extends BaseActivity {
                         }
                         previousPiece=null;
                         validMoves=null;
+                        //toggleTurn();
+                        //enemy.move();
+                        //toggleTurn();
                     }
 
 
@@ -312,10 +325,6 @@ public class GameActivity extends BaseActivity {
 	
         });
     }
-
-
-
-
 
 
     private void addOffSetActionListener(CustomImageView item){
