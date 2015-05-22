@@ -116,7 +116,7 @@ public abstract class Piece implements Comparable {
     }
 
     public void setCoordinates(Coordinates coordinates) {
-        getPlayer().changeWeightForCoordinates(this.getCoordinates(), coordinates);
+//        getPlayer().changeWeightForCoordinates(this.getCoordinates(), coordinates);
         this.coordinates = coordinates;
     }
 

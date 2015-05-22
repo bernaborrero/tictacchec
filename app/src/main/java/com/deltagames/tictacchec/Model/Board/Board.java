@@ -105,9 +105,13 @@ public class Board {
      */
     public void set(Piece piece, Coordinates coordinates) {
         board[coordinates.getX()][coordinates.getY()] = piece;
-        board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
+        if(this.hasInBounds(piece.getCoordinates())){
+            board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
+        }
+
         piece.setCoordinates(coordinates);
         piece.getPlayer().emptyMoves();
+        piece.setInBoard(true);
     }
 
     public void set(Piece[] pieces){

@@ -6,6 +6,7 @@ import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
 import com.deltagames.tictacchec.Model.Board.Moves;
+import com.deltagames.tictacchec.Model.Utils.Color;
 
 import java.util.concurrent.Semaphore;
 
@@ -19,6 +20,10 @@ public class Arnold extends Player {
     public static final String stringPlayer = "A";
     private final String ARNOLD_TAG = "Arnold";
     private final int EXHAUSTIVE_LEVELS = 8;
+
+    public Arnold(){super();}
+
+    public Arnold(Color color){super(color);}
 
     @Override
     public void move(Board board, Player enemy, Semaphore blockingSemaphore) {

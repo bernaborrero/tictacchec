@@ -1,6 +1,8 @@
 package com.deltagames.tictacchec.Model.Players;
 
 
+import android.util.Log;
+
 import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
@@ -37,6 +39,8 @@ public abstract class Player {
     private int[][] verticalPositions;
     private int[][] diagonalPositions;
 
+    private boolean turn;
+
     public Player() {
         pieces = new Piece[PIECES_BY_PLAYER];
         activePieces = 0;
@@ -46,7 +50,12 @@ public abstract class Player {
         horizontalPositions = new int[Board.ROWS][Board.COLS];
         verticalPositions = new int[Board.COLS][Board.ROWS];
         diagonalPositions = new int[2][Board.DIAGONAL_CELLS];
+
+        setTurn(false);
+
     }
+
+    public Player(Color color){this();this.color=color;}
 
     public void setActivePieces(int activePieces) {
         this.activePieces = activePieces;
@@ -223,12 +232,54 @@ public abstract class Player {
         diagonalPositions[diagonalNumber][pos] = value;
     }
 
-    public void createPieces(){
-        pieces[0]= new Pawn(this,new Coordinates(0,0),this.getColor());
-        pieces[1]= new Bishop(this,new Coordinates(1,0),this.getColor());
-        pieces[2]= new Knight(this,new Coordinates(2,0),this.getColor());
-        pieces[3]= new Rook(this,new Coordinates(3,0),this.getColor());
+    private void createPieces(int y){
+        pieces[0]= new Pawn(this,new Coordinates(0,y),this.getColor());
+        pieces[0].setInBoard(false);
+        pieces[1]= new Bishop(this,new Coordinates(1,y),this.getColor());
+        pieces[1].setInBoard(false);
+        pieces[2]= new Knight(this,new Coordinates(2,y),this.getColor());
+        pieces[2].setInBoard(false);
+        pieces[3]= new Rook(this,new Coordinates(3,y),this.getColor());
+        pieces[3].setInBoard(false);
+    }
+
+    /**
+     * look for a Piece with certain coordinates
+     * @param coord
+     * @return
+     */
+    public Piece getPiece(Coordinates coord){
+        boolean found=false;
+        int i=0;
+        do{
+            found=pieces[i].getCoordinates().compareTo(coord)==0;
+            Log.i("player get piece", "piece. X: " + pieces[i].getCoordinates().getX() + ", y: " + pieces[i].getCoordinates().getY());
+            if(!found){i++;}
+
+        }while(i< pieces.length && !found);
+
+        if(found){
+            return pieces[i];
+        }
+        return null;
 
     }
 
+
+    public void createPieces(Color color){
+        if(color==Color.WHITE){
+            createPieces(-1);
+        }else{
+            createPieces(4);
+        }
+
+    }
+
+    public boolean isTurn() {
+        return turn;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
 }
