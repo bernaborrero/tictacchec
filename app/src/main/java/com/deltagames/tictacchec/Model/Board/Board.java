@@ -2,6 +2,7 @@ package com.deltagames.tictacchec.Model.Board;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.deltagames.tictacchec.Model.Pieces.Piece;
 
@@ -17,6 +18,9 @@ public class Board {
     /**
      * Number of rows and columns of the board
      */
+    public static final int BOARD_ROWS = 6;
+    public static final int BOARD_COLS = 4;
+
     public static final int ROWS = 4;
     public static final int COLS = 4;
     public static final int DIAGONAL_CELLS = 4; // This value is needed for Arnold, and added here for awareness (ROWS & COLS must be equal)
@@ -51,7 +55,7 @@ public class Board {
      * Basic constructor
      */
     public Board() {
-        board = new Piece[COLS][ROWS];
+        board = new Piece[BOARD_COLS][BOARD_ROWS];
     }
 
 
@@ -106,6 +110,9 @@ public class Board {
     public void set(Piece piece, Coordinates coordinates) {
         board[coordinates.getX()][coordinates.getY()] = piece;
         board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
+
+        Log.d("NEW COORDINATES", "X: " + coordinates.getX() + ", Y: " + coordinates.getY());
+
         piece.setCoordinates(coordinates);
         piece.getPlayer().emptyMoves();
 
@@ -136,6 +143,15 @@ public class Board {
                 coordinates.getY() >= 0 && coordinates.getY() < Board.ROWS);
     }
 
+    /**
+     * Checks if a pair of Coordinates are in the bounds of the playing area of the board
+     * @param coordinates the Coordinates to check
+     * @return true if the Coordinates are in bounds of the board, false otherwise
+     */
+    public boolean hasInPlayingBounds(Coordinates coordinates) {
+        return (coordinates.getX() >= 0 && coordinates.getX() < BOARD_COLS &&
+                coordinates.getY() >= 1 && coordinates.getY() < BOARD_ROWS - 1);
+    }
 
     /**
      * get the equivalent of the screen coordinates in a position in the board

@@ -1,8 +1,6 @@
 package com.deltagames.tictacchec.Model.Players;
 
 
-import android.util.Log;
-
 import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
@@ -98,7 +96,7 @@ public abstract class Player {
             return true;
         }
 
-        for (int y = 0; y < Board.ROWS; y++) {
+        for (int y = 1; y <= Board.ROWS; y++) {
             if (getHorizontalWeight(y) == Board.ROWS) {
                 return true;
             }
@@ -232,47 +230,48 @@ public abstract class Player {
         diagonalPositions[diagonalNumber][pos] = value;
     }
 
-    private void createPieces(int y){
-        pieces[0]= new Pawn(this,new Coordinates(0,y),this.getColor());
-        pieces[0].setInBoard(false);
-        pieces[1]= new Bishop(this,new Coordinates(1,y),this.getColor());
-        pieces[1].setInBoard(false);
-        pieces[2]= new Knight(this,new Coordinates(2,y),this.getColor());
-        pieces[2].setInBoard(false);
-        pieces[3]= new Rook(this,new Coordinates(3,y),this.getColor());
-        pieces[3].setInBoard(false);
+    /**
+     * Look for a Piece with certain Coordinates
+     * @param coordinates the Coordinates of the piece
+     * @return the Piece with those Coordinates
+     */
+    public Piece getPiece(Coordinates coordinates){
+        boolean found = false;
+        int i = 0;
+        do {
+            found = (pieces[1].getCoordinates().compareTo(coordinates) == 0);
+            if (!found) {
+                i++;
+            }
+        } while (i< pieces.length && !found);
+
+        if (found) {
+            return pieces[i];
+        }
+
+        return null;
     }
 
     /**
-     * look for a Piece with certain coordinates
-     * @param coord
-     * @return
+     * Create the Pieces of the Player
      */
-    public Piece getPiece(Coordinates coord){
-        boolean found=false;
-        int i=0;
-        do{
-            found=pieces[i].getCoordinates().compareTo(coord)==0;
-            Log.i("player get piece", "piece. X: " + pieces[i].getCoordinates().getX() + ", y: " + pieces[i].getCoordinates().getY());
-            if(!found){i++;}
-
-        }while(i< pieces.length && !found);
-
-        if(found){
-            return pieces[i];
+    public void createPieces() {
+        if (color == Color.WHITE){
+            createPieces(0);
+        } else {
+            createPieces(5);
         }
-        return null;
-
     }
 
-
-    public void createPieces(Color color){
-        if(color==Color.WHITE){
-            createPieces(-1);
-        }else{
-            createPieces(4);
-        }
-
+    /**
+     * Create the Pieces of the Player to their initial position
+     * @param y the initial y-axis position
+     */
+    private void createPieces(int y) {
+        pieces[0] = new Pawn(this, new Coordinates(0, y), this.getColor());
+        pieces[1] = new Bishop(this, new Coordinates(1, y), this.getColor());
+        pieces[2] = new Knight(this, new Coordinates(2, y), this.getColor());
+        pieces[3] = new Rook(this, new Coordinates(3, y), this.getColor());
     }
 
     public boolean isTurn() {
