@@ -104,4 +104,8 @@ public class Coordinates implements Comparable {
     public String toString() {
         return getX() + "" + getY();
     }
+
+    public Coordinates clone(){
+        return new Coordinates(this.getX(),this.getY());
+    }
 }

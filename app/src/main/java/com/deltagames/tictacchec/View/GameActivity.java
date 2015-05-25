@@ -55,8 +55,9 @@ public class GameActivity extends BaseActivity {
 
 
         initPlayers(GameMode.PERSON, gameMode);
-        initCells();
         initOffSetCells();
+        initCells();
+
         startGame();
         //board.set(player.getPieces());
 
@@ -74,7 +75,7 @@ public class GameActivity extends BaseActivity {
 
     private void startGame(){
         checkBoard(0,player);
-        checkBoard(1,enemy);
+        checkBoard(5,enemy);
     }
 
     private void setGrid(){
@@ -96,50 +97,50 @@ public class GameActivity extends BaseActivity {
 
 
     private void initOffSetCells(){
-        offSetCells= new CustomImageView[4][2];
-        offSetCells[0][0]= (CustomImageView) findViewById(R.id.imageView_00);
-        offSetCells[0][0].setCoordinates(new Coordinates(0, -1));
-        offSetCells[0][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[0][0].setBackgroundResource(R.drawable.redbackground);
-        addOffSetActionListener(offSetCells[0][0]);
-        offSetCells[1][0]= (CustomImageView) findViewById(R.id.imageView_10);
-        offSetCells[1][0].setCoordinates(new Coordinates(1, -1));
-        offSetCells[1][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[1][0].setBackgroundResource(R.drawable.brownbackground);
-        addOffSetActionListener(offSetCells[1][0]);
-        offSetCells[2][0]= (CustomImageView) findViewById(R.id.imageView_20);
-        offSetCells[2][0].setCoordinates(new Coordinates(2, -1));
-        offSetCells[2][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[2][0].setBackgroundResource(R.drawable.redbackground);
-        addOffSetActionListener(offSetCells[2][0]);
-        offSetCells[3][0]= (CustomImageView) findViewById(R.id.imageView_30);
-        offSetCells[3][0].setCoordinates(new Coordinates(3, -1));
-        offSetCells[3][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[3][0].setBackgroundResource(R.drawable.brownbackground);
-        addOffSetActionListener(offSetCells[3][0]);
+        cells= new CustomImageView[4][6];
+        cells[0][0]= (CustomImageView) findViewById(R.id.imageView_00);
+        cells[0][0].setCoordinates(new Coordinates(0, 0));
+        cells[0][0].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[0][0].setBackgroundResource(R.drawable.redbackground);
+        addOffSetActionListener(cells[0][0]);
+        cells[1][0]= (CustomImageView) findViewById(R.id.imageView_10);
+        cells[1][0].setCoordinates(new Coordinates(1, 0));
+        cells[1][0].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[1][0].setBackgroundResource(R.drawable.brownbackground);
+        addOffSetActionListener(cells[1][0]);
+        cells[2][0]= (CustomImageView) findViewById(R.id.imageView_20);
+        cells[2][0].setCoordinates(new Coordinates(2, 0));
+        cells[2][0].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[2][0].setBackgroundResource(R.drawable.redbackground);
+        addOffSetActionListener(cells[2][0]);
+        cells[3][0]= (CustomImageView) findViewById(R.id.imageView_30);
+        cells[3][0].setCoordinates(new Coordinates(3, 0));
+        cells[3][0].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[3][0].setBackgroundResource(R.drawable.brownbackground);
+        addOffSetActionListener(cells[3][0]);
 
 
 
-        offSetCells[0][1]= (CustomImageView) findViewById(R.id.imageView__00);
-        offSetCells[0][1].setCoordinates(new Coordinates(0, 4));
-        offSetCells[0][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[0][1].setBackgroundResource(R.drawable.redbackground);
-        addOffSetActionListener(offSetCells[0][1]);
-        offSetCells[1][1]= (CustomImageView) findViewById(R.id.imageView__10);
-        offSetCells[1][1].setCoordinates(new Coordinates(1, 4));
-        offSetCells[1][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[1][1].setBackgroundResource(R.drawable.brownbackground);
-        addOffSetActionListener(offSetCells[1][1]);
-        offSetCells[2][1]= (CustomImageView) findViewById(R.id.imageView__20);
-        offSetCells[2][1].setCoordinates(new Coordinates(2, 4));
-        offSetCells[2][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[2][1].setBackgroundResource(R.drawable.redbackground);
-        addOffSetActionListener(offSetCells[2][1]);
-        offSetCells[3][1]= (CustomImageView) findViewById(R.id.imageView__30);
-        offSetCells[3][1].setCoordinates(new Coordinates(3, 4));
-        offSetCells[3][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        offSetCells[3][1].setBackgroundResource(R.drawable.brownbackground);
-        addOffSetActionListener(offSetCells[3][1]);
+        cells[0][5]= (CustomImageView) findViewById(R.id.imageView__00);
+        cells[0][5].setCoordinates(new Coordinates(0, 5));
+        cells[0][5].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[0][5].setBackgroundResource(R.drawable.redbackground);
+        addOffSetActionListener(cells[0][5]);
+        cells[1][5]= (CustomImageView) findViewById(R.id.imageView__10);
+        cells[1][5].setCoordinates(new Coordinates(1, 5));
+        cells[1][5].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[1][5].setBackgroundResource(R.drawable.brownbackground);
+        addOffSetActionListener(cells[1][5]);
+        cells[2][5]= (CustomImageView) findViewById(R.id.imageView__20);
+        cells[2][5].setCoordinates(new Coordinates(2, 5));
+        cells[2][5].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[2][5].setBackgroundResource(R.drawable.redbackground);
+        addOffSetActionListener(cells[2][5]);
+        cells[3][5]= (CustomImageView) findViewById(R.id.imageView__30);
+        cells[3][5].setCoordinates(new Coordinates(3, 5));
+        cells[3][5].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[3][5].setBackgroundResource(R.drawable.brownbackground);
+        addOffSetActionListener(cells[3][5]);
     }
     private void initPlayers(GameMode gmPlayer, GameMode gmEnemy){
         player = createPlayer(gmPlayer, Color.WHITE);
@@ -157,94 +158,93 @@ public class GameActivity extends BaseActivity {
     }
 
     private void initCells() {
-        cells= new CustomImageView[4][4];
-        cells[0][0]= (CustomImageView) findViewById(R.id.imageView00);
-        cells[0][0].setCoordinates(new Coordinates(0, 0));
-        cells[0][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[0][0].setBackgroundResource(R.drawable.redbackground);
-        addActionListener(cells[0][0]);
-
-        cells[1][0]= (CustomImageView) findViewById(R.id.imageView10);
-        cells[1][0].setCoordinates(new Coordinates(1, 0));
-        cells[1][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[1][0].setBackgroundResource(R.drawable.brownbackground);
-        addActionListener(cells[1][0]);
-
-        cells[2][0]= (CustomImageView) findViewById(R.id.imageView20);
-        cells[2][0].setCoordinates(new Coordinates(2, 0));
-        cells[2][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[2][0].setBackgroundResource(R.drawable.redbackground);
-        addActionListener(cells[2][0]);
-
-        cells[3][0]= (CustomImageView) findViewById(R.id.imageView30);
-        cells[3][0].setCoordinates(new Coordinates(3,0));
-        cells[3][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[3][0].setBackgroundResource(R.drawable.brownbackground);
-        addActionListener(cells[3][0]);
-
-        cells[0][1]= (CustomImageView) findViewById(R.id.imageView01);
-        cells[0][1].setCoordinates(new Coordinates(0,1));
+        cells[0][1]= (CustomImageView) findViewById(R.id.imageView00);
+        cells[0][1].setCoordinates(new Coordinates(0, 1));
         cells[0][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[0][1].setBackgroundResource(R.drawable.brownbackground);
+        cells[0][1].setBackgroundResource(R.drawable.redbackground);
         addActionListener(cells[0][1]);
-        cells[1][1]= (CustomImageView) findViewById(R.id.imageView11);
-        cells[1][1].setCoordinates(new Coordinates(1,1));
+
+        cells[1][1]= (CustomImageView) findViewById(R.id.imageView10);
+        cells[1][1].setCoordinates(new Coordinates(1, 1));
         cells[1][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[1][1].setBackgroundResource(R.drawable.redbackground);
+        cells[1][1].setBackgroundResource(R.drawable.brownbackground);
         addActionListener(cells[1][1]);
-        cells[2][1]= (CustomImageView) findViewById(R.id.imageView21);
+
+        cells[2][1]= (CustomImageView) findViewById(R.id.imageView20);
         cells[2][1].setCoordinates(new Coordinates(2, 1));
         cells[2][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[2][1].setBackgroundResource(R.drawable.brownbackground);
+        cells[2][1].setBackgroundResource(R.drawable.redbackground);
         addActionListener(cells[2][1]);
-        cells[3][1]= (CustomImageView) findViewById(R.id.imageView31);
-        cells[3][1].setCoordinates(new Coordinates(3, 1));
+
+        cells[3][1]= (CustomImageView) findViewById(R.id.imageView30);
+        cells[3][1].setCoordinates(new Coordinates(3,1));
         cells[3][1].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[3][1].setBackgroundResource(R.drawable.redbackground);
+        cells[3][1].setBackgroundResource(R.drawable.brownbackground);
         addActionListener(cells[3][1]);
 
-        cells[0][2]= (CustomImageView) findViewById(R.id.imageView02);
-        cells[0][2].setCoordinates(new Coordinates(0, 2));
+        cells[0][2]= (CustomImageView) findViewById(R.id.imageView01);
+        cells[0][2].setCoordinates(new Coordinates(0,2));
         cells[0][2].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[0][2].setBackgroundResource(R.drawable.redbackground);
+        cells[0][2].setBackgroundResource(R.drawable.brownbackground);
         addActionListener(cells[0][2]);
-        cells[1][2]= (CustomImageView) findViewById(R.id.imageView12);
+        cells[1][2]= (CustomImageView) findViewById(R.id.imageView11);
         cells[1][2].setCoordinates(new Coordinates(1,2));
         cells[1][2].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[1][2].setBackgroundResource(R.drawable.brownbackground);
+        cells[1][2].setBackgroundResource(R.drawable.redbackground);
         addActionListener(cells[1][2]);
-        cells[2][2]= (CustomImageView) findViewById(R.id.imageView22);
-        cells[2][2].setCoordinates(new Coordinates(2,2));
+        cells[2][2]= (CustomImageView) findViewById(R.id.imageView21);
+        cells[2][2].setCoordinates(new Coordinates(2, 2));
         cells[2][2].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[2][2].setBackgroundResource(R.drawable.redbackground);
+        cells[2][2].setBackgroundResource(R.drawable.brownbackground);
         addActionListener(cells[2][2]);
-        cells[3][2]= (CustomImageView) findViewById(R.id.imageView32);
-        cells[3][2].setCoordinates(new Coordinates(3,2));
+        cells[3][2]= (CustomImageView) findViewById(R.id.imageView31);
+        cells[3][2].setCoordinates(new Coordinates(3, 2));
         cells[3][2].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[3][2].setBackgroundResource(R.drawable.brownbackground);
+        cells[3][2].setBackgroundResource(R.drawable.redbackground);
         addActionListener(cells[3][2]);
 
-
-        cells[0][3]= (CustomImageView) findViewById(R.id.imageView03);
+        cells[0][3]= (CustomImageView) findViewById(R.id.imageView02);
         cells[0][3].setCoordinates(new Coordinates(0, 3));
         cells[0][3].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[0][3].setBackgroundResource(R.drawable.brownbackground);
+        cells[0][3].setBackgroundResource(R.drawable.redbackground);
         addActionListener(cells[0][3]);
-        cells[1][3]= (CustomImageView) findViewById(R.id.imageView13);
-        cells[1][3].setCoordinates(new Coordinates(1, 3));
+        cells[1][3]= (CustomImageView) findViewById(R.id.imageView12);
+        cells[1][3].setCoordinates(new Coordinates(1,3));
         cells[1][3].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[1][3].setBackgroundResource(R.drawable.redbackground);
+        cells[1][3].setBackgroundResource(R.drawable.brownbackground);
         addActionListener(cells[1][3]);
-        cells[2][3]= (CustomImageView) findViewById(R.id.imageView23);
-        cells[2][3].setCoordinates(new Coordinates(2, 3));
+        cells[2][3]= (CustomImageView) findViewById(R.id.imageView22);
+        cells[2][3].setCoordinates(new Coordinates(2,3));
         cells[2][3].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[2][3].setBackgroundResource(R.drawable.brownbackground);
+        cells[2][3].setBackgroundResource(R.drawable.redbackground);
         addActionListener(cells[2][3]);
-        cells[3][3]= (CustomImageView) findViewById(R.id.imageView33);
+        cells[3][3]= (CustomImageView) findViewById(R.id.imageView32);
         cells[3][3].setCoordinates(new Coordinates(3,3));
         cells[3][3].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[3][3].setBackgroundResource(R.drawable.redbackground);
+        cells[3][3].setBackgroundResource(R.drawable.brownbackground);
         addActionListener(cells[3][3]);
+
+
+        cells[0][4]= (CustomImageView) findViewById(R.id.imageView03);
+        cells[0][4].setCoordinates(new Coordinates(0, 4));
+        cells[0][4].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[0][4].setBackgroundResource(R.drawable.brownbackground);
+        addActionListener(cells[0][4]);
+        cells[1][4]= (CustomImageView) findViewById(R.id.imageView13);
+        cells[1][4].setCoordinates(new Coordinates(1, 4));
+        cells[1][4].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[1][4].setBackgroundResource(R.drawable.redbackground);
+        addActionListener(cells[1][4]);
+        cells[2][4]= (CustomImageView) findViewById(R.id.imageView23);
+        cells[2][4].setCoordinates(new Coordinates(2, 4));
+        cells[2][4].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[2][4].setBackgroundResource(R.drawable.brownbackground);
+        addActionListener(cells[2][4]);
+        cells[3][4]= (CustomImageView) findViewById(R.id.imageView33);
+        cells[3][4].setCoordinates(new Coordinates(3,4));
+        cells[3][4].setScaleType(ImageView.ScaleType.FIT_XY);
+        cells[3][4].setBackgroundResource(R.drawable.redbackground);
+        addActionListener(cells[3][4]);
     }
 
     private Piece previousPiece;
@@ -284,19 +284,25 @@ public class GameActivity extends BaseActivity {
                 }
             }
 
-            private void resetOffsetCells() {
+            private boolean resetOffsetCells(int i) {
                 boolean found = false;
-                int i = 0;
-                while (i < offSetCells.length && !found) {
                     int j = 0;
-                    while (j < offSetCells[0].length && !found) {
-                        if (offSetCells[i][j].getCoordinates().compareTo(prevCoords) == 0) {
+                    while (j < cells[0].length && !found) {
+                        if (cells[i][j].getCoordinates().compareTo(prevCoords) == 0) {
                             found = true;
-                            offSetCells[i][j].setImageResource(0);
+                            cells[i][j].setImageResource(0);
                         }
                         j++;
                     }
-                    i++;
+
+                return found;
+
+            }
+
+            private void resetOffsetCells(){
+                boolean done =resetOffsetCells(0);
+                if(!done){
+                    resetOffsetCells(4);
                 }
             }
 
@@ -333,6 +339,7 @@ public class GameActivity extends BaseActivity {
                 try {
                     Coordinates coord = ((CustomImageView)v).getCoordinates();
                     Piece piece = player.getPiece(coord);
+                    Log.i("piece", piece.toString());
                     if (previousPiece == null){
                         checkPreviousPiece(piece);
                     } else {
@@ -341,7 +348,7 @@ public class GameActivity extends BaseActivity {
                         }
                     }
                 } catch(Exception e) {
-                    Log.i("actionError", e.getMessage());
+                    Log.i("actionError", e.toString());
                 }
             }
 
@@ -369,7 +376,7 @@ public class GameActivity extends BaseActivity {
 
     private void checkBoard(int position, Player player){
         for(Piece piece : player.getPieces()){
-            offSetCells[piece.getCoordinates().getX()][position].setImageResource(piece.getImagePath());
+            cells[piece.getCoordinates().getX()][position].setImageResource(piece.getImagePath());
         }
 
     }

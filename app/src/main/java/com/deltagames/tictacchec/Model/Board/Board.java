@@ -115,8 +115,9 @@ public class Board {
 
         piece.setCoordinates(coordinates);
         piece.getPlayer().emptyMoves();
-
-        piece.setInBoard(true);
+        if(hasInPlayingBounds(coordinates)){
+            piece.setInBoard(true);
+        }
 
         // TODO: move killed piece (if killed!) to reserve
     }

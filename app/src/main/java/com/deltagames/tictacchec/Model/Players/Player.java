@@ -239,7 +239,7 @@ public abstract class Player {
         boolean found = false;
         int i = 0;
         do {
-            found = (pieces[1].getCoordinates().compareTo(coordinates) == 0);
+            found = (pieces[i].getCoordinates().compareTo(coordinates) == 0);
             if (!found) {
                 i++;
             }

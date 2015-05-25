@@ -21,6 +21,7 @@ public abstract class Piece implements Comparable {
 
     private Player player;
     private Coordinates coordinates;
+    private Coordinates outterCoordinates;
     private Color color;
     private PieceType pieceType;
     private Moves possibleMoves;
