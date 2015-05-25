@@ -21,7 +21,7 @@ public abstract class Piece implements Comparable {
 
     private Player player;
     private Coordinates coordinates;
-    private Coordinates outterCoordinates;
+    private Coordinates originCoordinates;
     private Color color;
     private PieceType pieceType;
     private Moves possibleMoves;
@@ -40,6 +40,7 @@ public abstract class Piece implements Comparable {
         this.color = color;
         this.possibleMoves = new Moves();
         this.inBoard = false;
+        this.originCoordinates=this.coordinates;
     }
 
     /**
@@ -284,5 +285,11 @@ public abstract class Piece implements Comparable {
         return piece;
     }
 
+    /**
+     * sets the piece out of the board
+     */
+    public void resetPosition(){
+        this.setCoordinates(this.originCoordinates.clone());
+    }
 
 }
