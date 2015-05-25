@@ -286,10 +286,11 @@ public abstract class Piece implements Comparable {
     }
 
     /**
-     * sets the piece out of the board
+     * places the piece out of the board
      */
     public void resetPosition(){
         this.setCoordinates(this.originCoordinates.clone());
+        setInBoard(false);
     }
 
 }

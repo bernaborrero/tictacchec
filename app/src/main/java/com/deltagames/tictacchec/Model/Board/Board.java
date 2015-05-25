@@ -108,6 +108,10 @@ public class Board {
      * @param coordinates the new Coordinates of the piece in the board
      */
     public void set(Piece piece, Coordinates coordinates) {
+        Piece pieceToKill=null;
+        if(board[coordinates.getX()][coordinates.getY()]!=null){
+            pieceToKill=board[coordinates.getX()][coordinates.getY()];
+        }
         board[coordinates.getX()][coordinates.getY()] = piece;
         board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
 
@@ -115,11 +119,23 @@ public class Board {
 
         piece.setCoordinates(coordinates);
         piece.getPlayer().emptyMoves();
+
         if(hasInPlayingBounds(coordinates)){
             piece.setInBoard(true);
         }
 
         // TODO: move killed piece (if killed!) to reserve
+        if(pieceToKill!=null){
+            handleKilling(pieceToKill);
+        }
+    }
+
+    /**
+     * deals with the piece which that has been killed
+     * @param piece
+     */
+    private void handleKilling(Piece piece){
+        piece.resetPosition();
     }
 
     public void set(Piece[] pieces){

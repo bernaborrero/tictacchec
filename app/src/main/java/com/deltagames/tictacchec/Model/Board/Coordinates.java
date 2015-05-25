@@ -105,6 +105,10 @@ public class Coordinates implements Comparable {
         return getX() + "" + getY();
     }
 
+    /**
+     *
+     * @return a copy of this coordinates object
+     */
     public Coordinates clone(){
         return new Coordinates(this.getX(),this.getY());
     }
