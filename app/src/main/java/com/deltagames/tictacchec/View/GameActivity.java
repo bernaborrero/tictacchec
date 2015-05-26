@@ -101,22 +101,18 @@ public class GameActivity extends BaseActivity {
         cells[0][0]= (CustomImageView) findViewById(R.id.imageView_00);
         cells[0][0].setCoordinates(new Coordinates(0, 0));
         cells[0][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[0][0].setBackgroundResource(R.drawable.redbackground);
         addOffSetActionListener(cells[0][0]);
         cells[1][0]= (CustomImageView) findViewById(R.id.imageView_10);
         cells[1][0].setCoordinates(new Coordinates(1, 0));
         cells[1][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[1][0].setBackgroundResource(R.drawable.brownbackground);
         addOffSetActionListener(cells[1][0]);
         cells[2][0]= (CustomImageView) findViewById(R.id.imageView_20);
         cells[2][0].setCoordinates(new Coordinates(2, 0));
         cells[2][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[2][0].setBackgroundResource(R.drawable.redbackground);
         addOffSetActionListener(cells[2][0]);
         cells[3][0]= (CustomImageView) findViewById(R.id.imageView_30);
         cells[3][0].setCoordinates(new Coordinates(3, 0));
         cells[3][0].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[3][0].setBackgroundResource(R.drawable.brownbackground);
         addOffSetActionListener(cells[3][0]);
 
 
@@ -124,22 +120,18 @@ public class GameActivity extends BaseActivity {
         cells[0][5]= (CustomImageView) findViewById(R.id.imageView__00);
         cells[0][5].setCoordinates(new Coordinates(0, 5));
         cells[0][5].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[0][5].setBackgroundResource(R.drawable.redbackground);
         addOffSetActionListener(cells[0][5]);
         cells[1][5]= (CustomImageView) findViewById(R.id.imageView__10);
         cells[1][5].setCoordinates(new Coordinates(1, 5));
         cells[1][5].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[1][5].setBackgroundResource(R.drawable.brownbackground);
         addOffSetActionListener(cells[1][5]);
         cells[2][5]= (CustomImageView) findViewById(R.id.imageView__20);
         cells[2][5].setCoordinates(new Coordinates(2, 5));
         cells[2][5].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[2][5].setBackgroundResource(R.drawable.redbackground);
         addOffSetActionListener(cells[2][5]);
         cells[3][5]= (CustomImageView) findViewById(R.id.imageView__30);
         cells[3][5].setCoordinates(new Coordinates(3, 5));
         cells[3][5].setScaleType(ImageView.ScaleType.FIT_XY);
-        cells[3][5].setBackgroundResource(R.drawable.brownbackground);
         addOffSetActionListener(cells[3][5]);
     }
     private void initPlayers(GameMode gmPlayer, GameMode gmEnemy){
@@ -269,12 +261,16 @@ public class GameActivity extends BaseActivity {
                         if (moveIsAllowed(coord)) {
                             board.set(previousPiece, coord);
                             cells[coord.getX()][coord.getY()].setImageResource(previousPiece.getImagePath());
-                            if (!board.hasInBounds(prevCoords)) {
+                            if (!board.hasInPlayingBounds(prevCoords)) {
                                 resetOffsetCells();
                             } else {
                                 cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
                             }
-
+                            Coordinates killedCoords = board.getKilledCoords();
+                            if(killedCoords!=null){
+                                cells[killedCoords.getX()][killedCoords.getY()].setImageResource(0);
+                            }
+                            board.resetKilledCoords();
                             previousPiece = null;
                             //toggleTurn();
                             //enemy.move();
@@ -288,9 +284,9 @@ public class GameActivity extends BaseActivity {
                 boolean found = false;
                     int j = 0;
                     while (j < cells[0].length && !found) {
-                        if (cells[i][j].getCoordinates().compareTo(prevCoords) == 0) {
+                        if (cells[j][i]!=null&&cells[j][i].getCoordinates().compareTo(prevCoords) == 0) {
                             found = true;
-                            cells[i][j].setImageResource(0);
+                            cells[j][i].setImageResource(0);
                         }
                         j++;
                     }

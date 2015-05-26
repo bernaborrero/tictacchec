@@ -293,4 +293,6 @@ public abstract class Piece implements Comparable {
         setInBoard(false);
     }
 
+    public void setOriginCoordinates(Coordinates coord){this.originCoordinates=coord;}
+
 }

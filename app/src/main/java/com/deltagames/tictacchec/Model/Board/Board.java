@@ -51,6 +51,8 @@ public class Board {
     private int cellWidth;
     private int cellHeight;
 
+    private Coordinates killedCoords;
+
     /**
      * Basic constructor
      */
@@ -135,7 +137,16 @@ public class Board {
      * @param piece
      */
     private void handleKilling(Piece piece){
+        killedCoords=piece.getCoordinates();
         piece.resetPosition();
+    }
+
+    public Coordinates getKilledCoords(){
+        return killedCoords;
+    }
+
+    public void resetKilledCoords(){
+        killedCoords=null;
     }
 
     public void set(Piece[] pieces){

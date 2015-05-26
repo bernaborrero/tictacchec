@@ -260,6 +260,7 @@ public abstract class Player {
             createPieces(0);
         } else {
             createPieces(5);
+            pieces[1].getCoordinates().setY(pieces[1].getCoordinates().getY()-1);
         }
     }
 
