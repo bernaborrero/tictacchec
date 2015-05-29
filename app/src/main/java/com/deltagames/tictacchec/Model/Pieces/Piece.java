@@ -73,10 +73,10 @@ public abstract class Piece implements Comparable {
         Moves validMoves = getPossibleMoves();
         if (validMoves.isEmpty() && !isInBoard()) {
 
-            for (int i = 0; i < Board.ROWS; i++) {
+            for (int i = 1; i <= Board.ROWS; i++) {
                 for (int j = 0; j < Board.COLS; j++) {
-                    if (board.get(i, j) == null) {
-                        Coordinates cords = new Coordinates(i, j);
+                    if (board.get(j, i) == null) {
+                        Coordinates cords = new Coordinates(j, i);
                         validMoves.add(new Move(this, cords, player.getWeightForCoordinates(cords)));
                     }
                 }
@@ -118,7 +118,7 @@ public abstract class Piece implements Comparable {
     }
 
     public void setCoordinates(Coordinates coordinates) {
-//        getPlayer().changeWeightForCoordinates(this.getCoordinates(), coordinates); // TODO: fix this!
+        getPlayer().changeWeightForCoordinates(this.getCoordinates(), coordinates); // TODO: fix this!
         this.coordinates = coordinates;
     }
 

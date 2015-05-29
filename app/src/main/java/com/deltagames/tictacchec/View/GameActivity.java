@@ -65,7 +65,12 @@ public class GameActivity extends BaseActivity {
 
 
     private void toggleTurn(){
-        changeTurn(player,enemy);
+        if(player.isTurn()){
+            changeTurn(player,enemy);
+        }else{
+            changeTurn(enemy,player);
+        }
+
     }
 
     private void changeTurn(Player player, Player enemy) {
@@ -76,6 +81,7 @@ public class GameActivity extends BaseActivity {
     private void startGame(){
         checkBoard(0,player);
         checkBoard(5,enemy);
+        toggleTurn();
     }
 
     private void setGrid(){
@@ -248,33 +254,34 @@ public class GameActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
+                if(player.isTurn()) {
+                    Coordinates coord = ((CustomImageView) v).getCoordinates();
+                    Piece piece = board.get(coord);
 
-                Coordinates coord = ((CustomImageView)v).getCoordinates();
-                Piece piece = board.get(coord);
-
-                if (previousPiece == null) {
-                    checkPreviousPiece(piece);
-                } else {
-                    if (piece != null && piece.getColor() == player.getColor()) {
+                    if (previousPiece == null) {
                         checkPreviousPiece(piece);
                     } else {
-                        if (moveIsAllowed(coord)) {
-                            board.set(previousPiece, coord);
-                            cells[coord.getX()][coord.getY()].setImageResource(previousPiece.getImagePath());
-                            if (!board.hasInPlayingBounds(prevCoords)) {
-                                resetOffsetCells();
-                            } else {
-                                cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
+                        if (piece != null && piece.getColor() == player.getColor()) {
+                            checkPreviousPiece(piece);
+                        } else {
+                            if (moveIsAllowed(coord)) {
+                                board.set(previousPiece, coord);
+                                cells[coord.getX()][coord.getY()].setImageResource(previousPiece.getImagePath());
+                                if (!board.hasInPlayingBounds(prevCoords)) {
+                                    resetOffsetCells();
+                                } else {
+                                    cells[prevCoords.getX()][prevCoords.getY()].setImageResource(0);
+                                }
+                                Coordinates killedCoords = board.getKilledCoords();
+                                if (killedCoords != null) {
+                                    cells[killedCoords.getX()][killedCoords.getY()].setImageResource(board.get(killedCoords).getImagePath());
+                                }
+                                board.resetKilledCoords();
+                                previousPiece = null;
+                                //toggleTurn();
+                                //enemy.move(board, player, new Semaphore(1));
+                                //toggleTurn();
                             }
-                            Coordinates killedCoords = board.getKilledCoords();
-                            if(killedCoords!=null){
-                                cells[killedCoords.getX()][killedCoords.getY()].setImageResource(0);
-                            }
-                            board.resetKilledCoords();
-                            previousPiece = null;
-                            //toggleTurn();
-                            //enemy.move();
-                            //toggleTurn();
                         }
                     }
                 }
@@ -332,20 +339,23 @@ public class GameActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                try {
-                    Coordinates coord = ((CustomImageView)v).getCoordinates();
-                    Piece piece = player.getPiece(coord);
-                    Log.i("piece", piece.toString());
-                    if (previousPiece == null){
-                        checkPreviousPiece(piece);
-                    } else {
-                        if (piece != null && piece.getColor() == player.getColor()) {
+                if(player.isTurn()) {
+                    try {
+                        Coordinates coord = ((CustomImageView) v).getCoordinates();
+                        Piece piece = player.getPiece(coord);
+                        Log.i("piece", piece.toString());
+                        if (previousPiece == null) {
                             checkPreviousPiece(piece);
+                        } else {
+                            if (piece != null && piece.getColor() == player.getColor()) {
+                                checkPreviousPiece(piece);
+                            }
                         }
+                    } catch (Exception e) {
+                        Log.i("piece", e.toString());
                     }
-                } catch(Exception e) {
-                    Log.i("actionError", e.toString());
                 }
+
             }
 
             private boolean moveIsAllowed(Piece piece) {

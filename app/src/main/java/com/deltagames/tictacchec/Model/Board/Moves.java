@@ -91,7 +91,14 @@ public class Moves implements Iterable {
 
         @Override
         public Object next() {
-            return ((Map.Entry<Move, Boolean>) iterator.next()).getKey();
+            try{
+                return ((Map.Entry<Move, Boolean>) iterator.next()).getKey();
+            }catch(Exception e){
+                next();
+            }
+
+            return null;
+
         }
 
         @Override

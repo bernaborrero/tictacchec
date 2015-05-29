@@ -45,8 +45,8 @@ public abstract class Player {
 
         moves = new Moves();
 
-        horizontalPositions = new int[Board.ROWS][Board.COLS];
-        verticalPositions = new int[Board.COLS][Board.ROWS];
+        horizontalPositions = new int[Board.BOARD_ROWS][Board.BOARD_COLS];
+        verticalPositions = new int[Board.BOARD_COLS][Board.BOARD_ROWS];
         diagonalPositions = new int[2][Board.DIAGONAL_CELLS];
 
         setTurn(false);

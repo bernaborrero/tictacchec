@@ -57,7 +57,7 @@ public class Arnold extends Player {
 
                 Move move = alphabeta(board, arnold, enemy, null, EXHAUSTIVE_LEVELS, minInfinite, maxInfinite, true);
                 board.set(move.getPiece(), move.getCoordinates());
-
+                Log.i("Arnold","finished");
                 blockingSemaphore.release();
             } catch (InterruptedException e) {
                 Log.d(ARNOLD_TAG, "Whoops! I can't block the UI!");
