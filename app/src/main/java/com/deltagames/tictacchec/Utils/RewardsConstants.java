@@ -11,6 +11,11 @@ public abstract class RewardsConstants {
     public static abstract class Achievements {
 
         /**
+         * Moves done
+         */
+        public static final String firstMoveDone = "CgkIi5711N4BEAIQDA";
+
+        /**
          * Games played
          */
         public static final String GAMES_PLAYED = "GAMES_PLAYED";

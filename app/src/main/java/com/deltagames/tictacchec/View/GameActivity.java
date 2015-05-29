@@ -21,6 +21,7 @@ import com.deltagames.tictacchec.Model.Players.HumanPlayer;
 import com.deltagames.tictacchec.Model.Players.Player;
 import com.deltagames.tictacchec.Model.Utils.Color;
 import com.deltagames.tictacchec.R;
+import com.deltagames.tictacchec.Utils.RewardsConstants;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 
 
@@ -248,6 +249,8 @@ public class GameActivity extends BaseActivity {
     private Piece previousPiece;
     private Coordinates prevCoords;
     private Moves validMoves;
+    private boolean toggleIn = true;
+
     private void addActionListener(CustomImageView item) {
 
         item.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +284,14 @@ public class GameActivity extends BaseActivity {
                                 //toggleTurn();
                                 //enemy.move(board, player, new Semaphore(1));
                                 //toggleTurn();
+
+                                if (toggleIn) {
+                                    unlockAchievement(RewardsConstants.Achievements.firstMoveDone);
+                                    toggleIn = false;
+                                } else {
+                                    updateHighScore(RewardsConstants.LeaderBoards.highScore, 40);
+                                }
+
                             }
                         }
                     }
@@ -371,6 +382,7 @@ public class GameActivity extends BaseActivity {
                     previousPiece=piece;
                     prevCoords=piece.getCoordinates();
                     validMoves=previousPiece.getValidMoves(board);
+
                 }
 
             }
